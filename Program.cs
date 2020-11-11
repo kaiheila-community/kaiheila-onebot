@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Kaiheila.Cqhttp.Cq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Kaiheila.Cqhttp
 {
@@ -8,6 +10,8 @@ namespace Kaiheila.Cqhttp
         {
             IHost host = CreateHostBuilder(args).Build();
 
+            _ = host.Services.GetService<CqHost>();
+
             host.Run();
         }
 
@@ -15,7 +19,7 @@ namespace Kaiheila.Cqhttp
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-
+                    services.AddSingleton<CqHost>();
                 });
     }
 }
