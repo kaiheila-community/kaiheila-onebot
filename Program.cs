@@ -4,8 +4,15 @@ using Microsoft.Extensions.Hosting;
 
 namespace Kaiheila.Cqhttp
 {
+    /// <summary>
+    /// 应用程序的入口点。
+    /// </summary>
     public static class Program
     {
+        /// <summary>
+        /// 应用程序的入口点。
+        /// </summary>
+        /// <param name="args">应用程序初始化命令参数。</param>
         public static void Main(string[] args)
         {
             IHost host = CreateHostBuilder(args).Build();
@@ -15,6 +22,11 @@ namespace Kaiheila.Cqhttp
             host.Run();
         }
 
+        /// <summary>
+        /// 创建泛型主机构建器。
+        /// </summary>
+        /// <param name="args">应用程序初始化命令参数。</param>
+        /// <returns>泛型主机构建器。</returns>
         private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
