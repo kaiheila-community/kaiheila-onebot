@@ -1,4 +1,5 @@
 ﻿using Kaiheila.Cqhttp.Cq;
+using Kaiheila.Cqhttp.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -31,6 +32,10 @@ namespace Kaiheila.Cqhttp
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
+                    // Storage
+                    services.AddSingleton<ConfigHelper>();
+
+                    // CQHTTP
                     services.AddSingleton<CqHost>();
                 });
     }
