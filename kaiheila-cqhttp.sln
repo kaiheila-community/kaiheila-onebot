@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-cqhttp", "kaiheila-cqhttp.csproj", "{8D14A36F-4568-4353-8D84-B10B42980B69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-cqhttp", "src\kaiheila-cqhttp.csproj", "{8D14A36F-4568-4353-8D84-B10B42980B69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
