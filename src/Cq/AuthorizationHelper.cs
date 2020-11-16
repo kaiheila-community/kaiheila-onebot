@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Kaiheila.Cqhttp.Storage;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
