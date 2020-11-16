@@ -33,6 +33,12 @@ namespace Kaiheila.Cqhttp.Storage
         /// </summary>
         [JsonProperty("http_post")]
         public CqHttpPostHostConfig CqHttpPostHostConfig { get; set; } = new CqHttpPostHostConfig();
+
+        /// <summary>
+        /// CQHTTP 鉴权配置。
+        /// </summary>
+        [JsonProperty("auth")]
+        public CqAuthConfig CqAuthConfig { get; set; } = new CqAuthConfig();
     }
 
     /// <summary>
@@ -83,5 +89,17 @@ namespace Kaiheila.Cqhttp.Storage
         /// </remarks>
         [JsonProperty("timeout")]
         public int Timeout { get; set; }
+    }
+
+    /// <summary>
+    /// CQHTTP 鉴权配置。
+    /// </summary>
+    public class CqAuthConfig
+    {
+        /// <summary>
+        /// CQHTTP 鉴权Access Token。
+        /// </summary>
+        [JsonProperty("access_token")]
+        public string AccessToken { get; set; } = "";
     }
 }
