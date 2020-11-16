@@ -21,11 +21,21 @@ namespace Kaiheila.Cqhttp.Cq.Communication
             ConfigHelper configHelper)
         {
             _logger = logger;
+            _configHelper = configHelper;
+        }
 
+        /// <summary>
+        /// 启动CQHTTP HTTP主机。
+        /// </summary>
+        public void Run()
+        {
             _logger.LogInformation("初始化CQHTTP HTTP主机。");
 
-            _configHelper = configHelper;
             _webHost = CreateWebHostBuilder().Build();
+
+            _webHost.Run();
+            _logger.LogInformation(
+                $"CQHTTP HTTP主机已经开始在{_configHelper.Config.CqConfig.CqHttpHostConfig.Host}:{_configHelper.Config.CqConfig.CqHttpHostConfig.Port}上监听。");
         }
 
         /// <summary>
@@ -38,14 +48,14 @@ namespace Kaiheila.Cqhttp.Cq.Communication
 
         #region Web Host
 
-        private readonly IWebHost _webHost;
+        private IWebHost _webHost;
 
         private IWebHostBuilder CreateWebHostBuilder() =>
             new WebHostBuilder().UseKestrel(options =>
                 {
                     options.Listen(
                         IPAddress.Parse(_configHelper.Config.CqConfig.CqHttpHostConfig.Host),
-                        5000,
+                        _configHelper.Config.CqConfig.CqHttpHostConfig.Port,
                         listenOptions =>
                         {
                             listenOptions.UseCqAuthorization(_configHelper);
