@@ -46,7 +46,10 @@ namespace Kaiheila.Cqhttp.Cq.Communication
                     options.Listen(
                         IPAddress.Parse(_configHelper.Config.CqConfig.CqHttpHostConfig.Host),
                         5000,
-                        listenOptions => {});
+                        listenOptions =>
+                        {
+                            listenOptions.UseCqAuthorization(_configHelper);
+                        });
                 });
 
         #endregion
