@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using Kaiheila.Cqhttp.Storage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -13,12 +15,16 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// 初始化CQHTTP HTTP主机。
         /// </summary>
         /// <param name="logger">CQHTTP HTTP主机日志记录器。</param>
-        public HttpHost(ILogger<HttpHost> logger)
+        /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
+        public HttpHost(
+            ILogger<HttpHost> logger,
+            ConfigHelper configHelper)
         {
             _logger = logger;
 
             _logger.LogInformation("初始化CQHTTP HTTP主机。");
 
+            _configHelper = configHelper;
             _webHost = CreateWebHostBuilder().Build();
         }
 
@@ -37,9 +43,10 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         private IWebHostBuilder CreateWebHostBuilder() =>
             new WebHostBuilder().UseKestrel(options =>
                 {
-                })
-                .Configure(builder =>
-                {
+                    options.Listen(
+                        IPAddress.Parse(_configHelper.Config.CqConfig.CqHttpHostConfig.Host),
+                        5000,
+                        listenOptions => {});
                 });
 
         #endregion
@@ -48,5 +55,10 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// CQHTTP HTTP主机日志记录器。
         /// </summary>
         private readonly ILogger<HttpHost> _logger;
+
+        /// <summary>
+        /// 提供访问应用配置能力的帮助类型。
+        /// </summary>
+        private readonly ConfigHelper _configHelper;
     }
 }
