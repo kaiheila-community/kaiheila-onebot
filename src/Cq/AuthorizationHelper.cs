@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Kaiheila.Cqhttp.Storage;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -16,11 +17,14 @@ namespace Kaiheila.Cqhttp.Cq
             ConfigHelper configHelper)
         {
             listenOptions.Use(
-                next => context =>
+                next => async context =>
                 {
                     // Skip Authorization When IsNullOrEmpty
                     if (string.IsNullOrEmpty(configHelper.Config.CqConfig.CqAuthConfig.AccessToken))
-                        return next(context);
+                    {
+                        await next(context);
+                        return;
+                    }
 
                     if (
                         context.GetHttpContext().Request.Headers
@@ -28,9 +32,7 @@ namespace Kaiheila.Cqhttp.Cq
                         authValue.Any() &&
                         authValue.FirstOrDefault() ==
                         BearerPrefix + configHelper.Config.CqConfig.CqAuthConfig.AccessToken)
-                        return next(context);
-
-                    return null;
+                        await next(context);
                 });
 
             return listenOptions;
