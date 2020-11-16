@@ -1,4 +1,5 @@
 ﻿using System;
+using Kaiheila.Cqhttp.Cq.Communication;
 
 namespace Kaiheila.Cqhttp.Cq
 {
@@ -10,9 +11,11 @@ namespace Kaiheila.Cqhttp.Cq
         /// <summary>
         /// 初始化CQHTTP主机。
         /// </summary>
-        public CqHost()
+        /// <param name="httpHost">CQHTTP HTTP主机。</param>
+        public CqHost(
+            HttpHost httpHost)
         {
-
+            _httpHost = httpHost;
         }
 
         /// <summary>
@@ -22,5 +25,14 @@ namespace Kaiheila.Cqhttp.Cq
         {
 
         }
+
+        #region Communication Hosts
+
+        /// <summary>
+        /// CQHTTP HTTP主机。
+        /// </summary>
+        private readonly HttpHost _httpHost;
+
+        #endregion
     }
 }
