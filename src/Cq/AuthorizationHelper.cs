@@ -25,6 +25,7 @@ namespace Kaiheila.Cqhttp.Cq
                     if (
                         context.GetHttpContext().Request.Headers
                             .TryGetValue(AuthorizationHeader, out StringValues authValue) &&
+                        authValue.Any() &&
                         authValue.FirstOrDefault() ==
                         BearerPrefix + configHelper.Config.CqConfig.CqAuthConfig.AccessToken)
                         return next(context);
