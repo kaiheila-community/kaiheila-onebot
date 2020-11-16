@@ -12,10 +12,13 @@ namespace Kaiheila.Cqhttp.Cq
         /// 初始化CQHTTP主机。
         /// </summary>
         /// <param name="httpHost">CQHTTP HTTP主机。</param>
+        /// <param name="wsHost">CQHTTP WS主机。</param>
         public CqHost(
-            HttpHost httpHost)
+            HttpHost httpHost,
+            WsHost wsHost)
         {
             _httpHost = httpHost;
+            _wsHost = wsHost;
         }
 
         /// <summary>
@@ -32,6 +35,11 @@ namespace Kaiheila.Cqhttp.Cq
         /// CQHTTP HTTP主机。
         /// </summary>
         private readonly HttpHost _httpHost;
+
+        /// <summary>
+        /// CQHTTP WS主机。
+        /// </summary>
+        private readonly WsHost _wsHost;
 
         #endregion
     }

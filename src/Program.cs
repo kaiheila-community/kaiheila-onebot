@@ -41,6 +41,7 @@ namespace Kaiheila.Cqhttp
 
                     // CQHTTP Communications
                     services.AddSingleton<HttpHost>();
+                    services.AddSingleton<WsHost>();
                 });
     }
 }
