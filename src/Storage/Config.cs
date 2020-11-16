@@ -1,80 +1,55 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Kaiheila.Cqhttp.Storage
 {
     /// <summary>
-    /// 提供访问应用配置能力的帮助类型。
+    /// 应用配置。
     /// </summary>
-    public sealed class ConfigHelper
+    [JsonObject(MemberSerialization.OptIn)]
+    public class Config
     {
         /// <summary>
-        /// 初始化应用配置。
+        /// CQHTTP配置。
         /// </summary>
-        /// <param name="logger">配置日志记录器。</param>
-        public ConfigHelper(ILogger<ConfigHelper> logger)
-        {
-            _logger = logger;
-            _logger.LogInformation("开始加载配置。");
-
-            ReloadConfig();
-        }
-
-        /// <summary>
-        /// 重载应用配置。
-        /// </summary>
-        public void ReloadConfig()
-        {
-            ConfigFilePath = StorageHelper.GetRootFilePath("config.json");
-
-            if (!File.Exists(ConfigFilePath))
-            {
-                _logger.LogCritical("无法找到配置文件。");
-
-                // TODO: 使用预先配置完毕的配置文件替换自动生成的配置
-                File.WriteAllText(ConfigFilePath, JsonConvert.SerializeObject(new Config(), Formatting.Indented));
-
-                _logger.LogInformation("已经生成了默认的配置文件。修改配置，然后重启应用。");
-
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
-
-            try
-            {
-                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath));
-            }
-            catch (Exception exception)
-            {
-                _logger.LogCritical(exception, "加载配置文件时发生了错误。");
-
-                Console.ReadKey();
-                Environment.Exit(1);
-            }
-        }
-
-        /// <summary>
-        /// 配置日志记录器。
-        /// </summary>
-        private readonly ILogger<ConfigHelper> _logger;
-
-        /// <summary>
-        /// 配置文件的完整路径。
-        /// </summary>
-        public string ConfigFilePath;
-
-        /// <summary>
-        /// 应用配置。
-        /// </summary>
-        public Config Config;
+        [JsonProperty("cqhttp")]
+        public CqConfig CqConfig { get; set; } = new CqConfig();
     }
 
     /// <summary>
-    /// 应用配置。
+    /// CQHTTP配置。
     /// </summary>
-    public class Config
+    [JsonObject(MemberSerialization.OptIn)]
+    public class CqConfig
     {
+        /// <summary>
+        /// CQHTTP HTTP主机配置。
+        /// </summary>
+        [JsonProperty("http")]
+        public CqHttpHostConfig CqHttpHostConfig { get; set; } = new CqHttpHostConfig();
+    }
+
+    /// <summary>
+    /// CQHTTP HTTP主机配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class CqHttpHostConfig
+    {
+        /// <summary>
+        /// 是否启用HTTP。
+        /// </summary>
+        [JsonProperty("enable")]
+        public bool Enable { get; set; } = true;
+
+        /// <summary>
+        /// HTTP服务器监听的IP。
+        /// </summary>
+        [JsonProperty("host")]
+        public string Host { get; set; } = "0.0.0.0";
+
+        /// <summary>
+        /// HTTP服务器监听的端口。
+        /// </summary>
+        [JsonProperty("port")]
+        public int Port { get; set; } = 5700;
     }
 }
