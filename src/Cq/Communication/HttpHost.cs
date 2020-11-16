@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Kaiheila.Cqhttp.Cq.Communication
@@ -15,6 +16,10 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         public HttpHost(ILogger<HttpHost> logger)
         {
             _logger = logger;
+
+            _logger.LogInformation("初始化CQHTTP HTTP主机。");
+
+            _webHost = CreateWebHostBuilder().Build();
         }
 
         /// <summary>
@@ -22,8 +27,22 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// </summary>
         public void Dispose()
         {
-            
+            _webHost.Dispose();
         }
+
+        #region Web Host
+
+        private readonly IWebHost _webHost;
+
+        private IWebHostBuilder CreateWebHostBuilder() =>
+            new WebHostBuilder().UseKestrel(options =>
+                {
+                })
+                .Configure(builder =>
+                {
+                });
+
+        #endregion
 
         /// <summary>
         /// CQHTTP HTTP主机日志记录器。
