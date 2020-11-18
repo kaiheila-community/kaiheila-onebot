@@ -1,0 +1,40 @@
+/*!
+ * kaiheila-cqhttp 配置文件
+ * 版本 1
+ * 随附于 kaiheila-cqhttp >= v0.1.0
+ *
+ * 可在
+ * https://github.com/kaiheila-community/kaiheila-cqhttp
+ * 找到文档的帮助。
+ *
+ * 配置文件内允许使用注释，总是在对象成员后跟随逗号以及不带双引号的键名。
+ *
+ * 注意：不要移除任何配置项。
+ */
+{
+  "cqhttp": {
+    /*
+     * CQHTTP配置。
+     *
+     * 使用此节点配置kaiheila-cqhttp与你的Bot服务进行连接的相关配置。
+     */
+    "http": {
+      "enable": true, // 是否启用HTTP。
+
+      /*
+       * HTTP服务器监听的IP。
+       * 使用"0.0.0.0"监听任何IP，
+       * 使用"127.0.0.1"监听本机环回。
+       */
+      "host": "0.0.0.0",
+
+      "port": "5700", // HTTP服务器监听的端口。
+    },
+    "http_post": {
+
+    },
+    "auth": {
+
+    },
+  },
+}
