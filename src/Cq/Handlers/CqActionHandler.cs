@@ -124,7 +124,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
 
                     try
                     {
-                        cqActionHandler.Process(context.Request.Path, payload);
+                        cqActionHandler.Process(context.Request.Path.Value.Trim('/'), payload);
                     }
                     catch (HttpRequestException e)
                     {
