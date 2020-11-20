@@ -1,5 +1,8 @@
 ﻿using System.Linq;
+using System.Net;
 using Kaiheila.Cqhttp.Storage;
+using Kaiheila.Cqhttp.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Primitives;
@@ -25,13 +28,44 @@ namespace Kaiheila.Cqhttp.Cq
                         return;
                     }
 
-                    if (
-                        context.GetHttpContext().Request.Headers
-                            .TryGetValue(AuthorizationHeader, out StringValues authValue) &&
-                        authValue.Any() &&
-                        authValue.FirstOrDefault() ==
-                        BearerPrefix + configHelper.Config.CqConfig.CqAuthConfig.AccessToken)
-                        await next(context);
+                    HttpContext httpContext = context.GetHttpContext();
+
+                    bool hasAccessTokenInHeader = httpContext.Request.Headers
+                        .TryGetValue(AuthorizationHeader, out StringValues authValue) && authValue.Any();
+
+                    if (hasAccessTokenInHeader)
+                    {
+                        if (
+                            authValue.FirstOrDefault() ==
+                            BearerPrefix + configHelper.Config.CqConfig.CqAuthConfig.AccessToken)
+                        {
+                            await next(context);
+                            return;
+                        }
+
+                        httpContext.Response.SetStatusCode(HttpStatusCode.Forbidden);
+                        return;
+                    }
+
+                    bool hasAccessTokenInQuery =
+                        httpContext.Request.Query.TryGetValue("access_token", out authValue) &&
+                        authValue.Any();
+
+                    if (hasAccessTokenInQuery)
+                    {
+                        if (
+                            authValue.FirstOrDefault() ==
+                            configHelper.Config.CqConfig.CqAuthConfig.AccessToken)
+                        {
+                            await next(context);
+                            return;
+                        }
+
+                        httpContext.Response.SetStatusCode(HttpStatusCode.Forbidden);
+                        return;
+                    }
+
+                    httpContext.Response.SetStatusCode(HttpStatusCode.Unauthorized);
                 });
 
             return listenOptions;
