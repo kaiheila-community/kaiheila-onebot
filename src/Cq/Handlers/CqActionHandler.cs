@@ -1,8 +1,9 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using Kaiheila.Cqhttp.Cq.Controllers;
 using Kaiheila.Cqhttp.Storage;
@@ -65,7 +66,12 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <param name="payload">JSON报文。</param>
         public void Process(string action, JObject payload)
         {
-            throw new NotImplementedException();
+            if (_controllers.TryGetValue(action, out CqControllerBase controller))
+            {
+                return;
+            }
+
+            throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
         }
 
         #endregion
@@ -123,6 +129,11 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                     try
                     {
                         cqActionHandler.Process(httpContext.Request.Path, payload);
+                    }
+                    catch (HttpRequestException e)
+                    {
+                        if (e.StatusCode != null) httpContext.Response.SetStatusCode((HttpStatusCode) e.StatusCode);
+                        return;
                     }
                     catch (Exception e)
                     {
