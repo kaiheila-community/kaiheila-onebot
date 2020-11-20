@@ -35,7 +35,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
 
             _webHost.Run();
             _logger.LogInformation(
-                $"CQHTTP HTTP主机已经开始在{_configHelper.Config.CqConfig.CqHttpHostConfig.Host}:{_configHelper.Config.CqConfig.CqHttpHostConfig.Port}上监听。");
+                $"CQHTTP HTTP主机已经开始在http://{_configHelper.Config.CqConfig.CqHttpHostConfig.Host}:{_configHelper.Config.CqConfig.CqHttpHostConfig.Port}上监听。");
         }
 
         /// <summary>
