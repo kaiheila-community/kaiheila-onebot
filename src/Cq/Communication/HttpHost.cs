@@ -64,7 +64,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
                         {
                             listenOptions
                                 .UseCqAuthorization(_configHelper)
-                                .UseCqActionHandler(_cqActionHandler, _configHelper);
+                                .UseCqActionHandler(_cqActionHandler);
                         });
                 });
 
