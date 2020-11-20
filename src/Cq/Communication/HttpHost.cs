@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using Kaiheila.Cqhttp.Cq.Handlers;
 using Kaiheila.Cqhttp.Storage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,12 +16,15 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// 初始化CQHTTP HTTP主机。
         /// </summary>
         /// <param name="logger">CQHTTP HTTP主机日志记录器。</param>
+        /// <param name="cqActionHandler">CQHTTP任务处理器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public HttpHost(
             ILogger<HttpHost> logger,
+            CqActionHandler cqActionHandler,
             ConfigHelper configHelper)
         {
             _logger = logger;
+            _cqActionHandler = cqActionHandler;
             _configHelper = configHelper;
         }
 
@@ -58,7 +62,9 @@ namespace Kaiheila.Cqhttp.Cq.Communication
                         _configHelper.Config.CqConfig.CqHttpHostConfig.Port,
                         listenOptions =>
                         {
-                            listenOptions.UseCqAuthorization(_configHelper);
+                            listenOptions
+                                .UseCqAuthorization(_configHelper)
+                                .UseCqActionHandler(_cqActionHandler, _configHelper);
                         });
                 });
 
@@ -68,6 +74,11 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// CQHTTP HTTP主机日志记录器。
         /// </summary>
         private readonly ILogger<HttpHost> _logger;
+
+        /// <summary>
+        /// CQHTTP任务处理器。
+        /// </summary>
+        private readonly CqActionHandler _cqActionHandler;
 
         /// <summary>
         /// 提供访问应用配置能力的帮助类型。
