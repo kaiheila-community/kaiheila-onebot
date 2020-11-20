@@ -59,15 +59,15 @@ namespace Kaiheila.Cqhttp.Cq.Communication
                 {
                     options.Listen(
                         IPAddress.Parse(_configHelper.Config.CqConfig.CqHttpHostConfig.Host),
-                        _configHelper.Config.CqConfig.CqHttpHostConfig.Port,
-                        listenOptions =>
-                        {
-                            listenOptions
-                                .UseCqAuthorization(_configHelper)
-                                .UseCqActionHandler(_cqActionHandler);
-                        });
+                        _configHelper.Config.CqConfig.CqHttpHostConfig.Port
+                        );
                 })
-                .Configure(builder => { });
+                .Configure(builder =>
+                {
+                    builder
+                        .UseCqAuthorization(_configHelper)
+                        .UseCqActionHandler(_cqActionHandler);
+                });
 
         #endregion
 

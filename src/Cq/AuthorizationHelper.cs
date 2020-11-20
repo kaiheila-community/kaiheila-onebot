@@ -2,9 +2,7 @@
 using System.Net;
 using Kaiheila.Cqhttp.Storage;
 using Kaiheila.Cqhttp.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Primitives;
 
 namespace Kaiheila.Cqhttp.Cq
@@ -14,11 +12,11 @@ namespace Kaiheila.Cqhttp.Cq
         private const string AuthorizationHeader = "Authorization";
         private const string BearerPrefix = "Bearer ";
 
-        public static ListenOptions UseCqAuthorization(
-            this ListenOptions listenOptions,
+        public static IApplicationBuilder UseCqAuthorization(
+            this IApplicationBuilder builder,
             ConfigHelper configHelper)
         {
-            listenOptions.Use(
+            builder.Use(
                 next => async context =>
                 {
                     // Skip Authorization When IsNullOrEmpty
@@ -28,9 +26,7 @@ namespace Kaiheila.Cqhttp.Cq
                         return;
                     }
 
-                    HttpContext httpContext = context.GetHttpContext();
-
-                    bool hasAccessTokenInHeader = httpContext.Request.Headers
+                    bool hasAccessTokenInHeader = context.Request.Headers
                         .TryGetValue(AuthorizationHeader, out StringValues authValue) && authValue.Any();
 
                     if (hasAccessTokenInHeader)
@@ -43,12 +39,12 @@ namespace Kaiheila.Cqhttp.Cq
                             return;
                         }
 
-                        httpContext.Response.SetStatusCode(HttpStatusCode.Forbidden);
+                        context.Response.SetStatusCode(HttpStatusCode.Forbidden);
                         return;
                     }
 
                     bool hasAccessTokenInQuery =
-                        httpContext.Request.Query.TryGetValue("access_token", out authValue) &&
+                        context.Request.Query.TryGetValue("access_token", out authValue) &&
                         authValue.Any();
 
                     if (hasAccessTokenInQuery)
@@ -61,14 +57,14 @@ namespace Kaiheila.Cqhttp.Cq
                             return;
                         }
 
-                        httpContext.Response.SetStatusCode(HttpStatusCode.Forbidden);
+                        context.Response.SetStatusCode(HttpStatusCode.Forbidden);
                         return;
                     }
 
-                    httpContext.Response.SetStatusCode(HttpStatusCode.Unauthorized);
+                    context.Response.SetStatusCode(HttpStatusCode.Unauthorized);
                 });
 
-            return listenOptions;
+            return builder;
         }
     }
 }

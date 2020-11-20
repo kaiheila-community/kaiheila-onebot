@@ -8,9 +8,7 @@ using System.Reflection;
 using Kaiheila.Cqhttp.Cq.Controllers;
 using Kaiheila.Cqhttp.Storage;
 using Kaiheila.Cqhttp.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Connections;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
@@ -98,23 +96,21 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
 
     public static class CqActionHandlerHelper
     {
-        public static ListenOptions UseCqActionHandler(
-            this ListenOptions listenOptions,
+        public static IApplicationBuilder UseCqActionHandler(
+            this IApplicationBuilder builder,
             CqActionHandler cqActionHandler)
         {
-            listenOptions.Use(
+            builder.Use(
                 next => async context =>
                 {
-                    HttpContext httpContext = context.GetHttpContext();
-
                     JObject payload;
 
-                    switch (httpContext.Request.ContentType)
+                    switch (context.Request.ContentType)
                     {
                         case "application/json":
                             try
                             {
-                                payload = JObject.Parse(await new StreamReader(httpContext.Request.Body).ReadToEndAsync());
+                                payload = JObject.Parse(await new StreamReader(context.Request.Body).ReadToEndAsync());
                             }
                             catch (Exception e)
                             {
@@ -122,17 +118,17 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                             }
                             break;
                         default:
-                            httpContext.Response.SetStatusCode(HttpStatusCode.NotAcceptable);
+                            context.Response.SetStatusCode(HttpStatusCode.NotAcceptable);
                             return;
                     }
 
                     try
                     {
-                        cqActionHandler.Process(httpContext.Request.Path, payload);
+                        cqActionHandler.Process(context.Request.Path, payload);
                     }
                     catch (HttpRequestException e)
                     {
-                        if (e.StatusCode != null) httpContext.Response.SetStatusCode((HttpStatusCode) e.StatusCode);
+                        if (e.StatusCode != null) context.Response.SetStatusCode((HttpStatusCode) e.StatusCode);
                         return;
                     }
                     catch (Exception e)
@@ -141,7 +137,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                     }
                 });
 
-            return listenOptions;
+            return builder;
         }
     }
 }
