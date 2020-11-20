@@ -64,12 +64,10 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <param name="payload">JSON报文。</param>
         public void Process(string action, JObject payload)
         {
-            if (_controllers.TryGetValue(action, out CqControllerBase controller))
-            {
-                return;
-            }
+            if (!_controllers.TryGetValue(action, out CqControllerBase controller))
+                throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
 
-            throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
+            controller.Process(payload);
         }
 
         #endregion
