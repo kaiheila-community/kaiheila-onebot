@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using Kaiheila.Cqhttp.Cq.Controllers;
+using Kaiheila.Cqhttp.Storage;
 using Kaiheila.Cqhttp.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Connections;
@@ -21,18 +23,34 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <summary>
         /// 初始化CQHTTP任务处理器。
         /// </summary>
-        /// <param name="logger"></param>
+        /// <param name="logger">CQHTTP任务处理器日志记录器。</param>
+        /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public CqActionHandler(
-            ILogger<CqActionHandler> logger)
+            ILogger<CqActionHandler> logger,
+            ConfigHelper configHelper)
         {
             _logger = logger;
+            _configHelper = configHelper;
 
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()
                     .Where(type => Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) is not null)))
             {
                 string action = (Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) as CqControllerAttribute)?.Action;
-                if (action != null && !_controllers.ContainsKey(action)) _controllers.Add(action, type);
+                if (action == null || _controllers.ContainsKey(action) || type.FullName == null) continue;
+
+                object[] parameters = {new CqControllerContext {ConfigHelper = _configHelper}};
+
+                _controllers.Add(action,
+                    Assembly.GetExecutingAssembly().CreateInstance(
+                        type.FullName,
+                        false,
+                        BindingFlags.Default,
+                        null,
+                        parameters,
+                        null,
+                        null
+                    ) as CqControllerBase);
             }
 
             _logger.LogInformation($"加载了{_controllers.Count}个CQHTTP任务控制器。");
@@ -57,7 +75,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <summary>
         /// CQHTTP任务控制器。
         /// </summary>
-        private readonly Dictionary<string, Type> _controllers;
+        private readonly Dictionary<string, CqControllerBase> _controllers;
 
         #endregion
 
@@ -65,6 +83,11 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// CQHTTP任务处理器日志记录器。
         /// </summary>
         private readonly ILogger<CqActionHandler> _logger;
+
+        /// <summary>
+        /// 提供访问应用配置能力的帮助类型。
+        /// </summary>
+        private readonly ConfigHelper _configHelper;
     }
 
     public static class CqActionHandlerHelper
