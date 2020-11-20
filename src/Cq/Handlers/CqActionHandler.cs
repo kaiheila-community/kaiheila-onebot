@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -75,7 +75,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <summary>
         /// CQHTTP任务控制器。
         /// </summary>
-        private readonly Dictionary<string, CqControllerBase> _controllers;
+        private readonly Dictionary<string, CqControllerBase> _controllers = new Dictionary<string, CqControllerBase>();
 
         #endregion
 
