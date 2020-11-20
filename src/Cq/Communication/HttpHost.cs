@@ -47,7 +47,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// </summary>
         public void Dispose()
         {
-            _webHost.Dispose();
+            _webHost?.Dispose();
         }
 
         #region Web Host
