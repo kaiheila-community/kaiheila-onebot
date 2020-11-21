@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sdk\src\core\kaiheila-dotnet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Resources\Resources.resx">
       <Generator></Generator>
     </EmbeddedResource>
