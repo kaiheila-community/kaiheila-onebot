@@ -1,4 +1,6 @@
-﻿using Kaiheila.Cqhttp.Storage;
+﻿using System.Reactive.Subjects;
+using Kaiheila.Cqhttp.Cq.Events;
+using Kaiheila.Cqhttp.Storage;
 using Microsoft.Extensions.Logging;
 
 namespace Kaiheila.Cqhttp.Cq.Handlers
@@ -20,6 +22,12 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
             _logger = logger;
             _configHelper = configHelper;
         }
+
+        #region Event
+
+        public Subject<CqEventBase> Event = new Subject<CqEventBase>();
+
+        #endregion
 
         /// <summary>
         /// CQHTTP事件处理器日志记录器。
