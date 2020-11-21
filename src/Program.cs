@@ -42,6 +42,7 @@ namespace Kaiheila.Cqhttp
 
                     // CQHTTP Handlers
                     services.AddSingleton<CqActionHandler>();
+                    services.AddSingleton<CqEventHandler>();
 
                     // CQHTTP Communications
                     services.AddSingleton<HttpHost>();
