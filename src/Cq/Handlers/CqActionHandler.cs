@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using Kaiheila.Cqhttp.Cq.Controllers;
+using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
 using Kaiheila.Cqhttp.Utils;
 using Microsoft.AspNetCore.Builder;
@@ -22,12 +23,15 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <summary>
         /// 初始化CQHTTP任务处理器。
         /// </summary>
+        /// <param name="khHost">Kaiheila主机。</param>
         /// <param name="logger">CQHTTP任务处理器日志记录器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public CqActionHandler(
+            KhHost khHost,
             ILogger<CqActionHandler> logger,
             ConfigHelper configHelper)
         {
+            _khHost = khHost;
             _logger = logger;
             _configHelper = configHelper;
 
@@ -38,7 +42,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                 string action = (Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) as CqControllerAttribute)?.Action;
                 if (action == null || _controllers.ContainsKey(action) || type.FullName == null) continue;
 
-                object[] parameters = {new CqControllerContext {ConfigHelper = _configHelper}};
+                object[] parameters = {new CqContext(_khHost, _configHelper)};
 
                 _controllers.Add(action,
                     Assembly.GetExecutingAssembly().CreateInstance(
@@ -80,6 +84,11 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         private readonly Dictionary<string, CqControllerBase> _controllers = new Dictionary<string, CqControllerBase>();
 
         #endregion
+
+        /// <summary>
+        /// Kaiheila主机。
+        /// </summary>
+        private readonly KhHost _khHost;
 
         /// <summary>
         /// CQHTTP任务处理器日志记录器。
