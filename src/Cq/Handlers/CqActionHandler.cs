@@ -24,14 +24,17 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// 初始化CQHTTP任务处理器。
         /// </summary>
         /// <param name="khHost">Kaiheila主机。</param>
+        /// <param name="cqContext">CQHTTP上下文。</param>
         /// <param name="logger">CQHTTP任务处理器日志记录器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public CqActionHandler(
             KhHost khHost,
+            CqContext cqContext,
             ILogger<CqActionHandler> logger,
             ConfigHelper configHelper)
         {
             _khHost = khHost;
+            _cqContext = cqContext;
             _logger = logger;
             _configHelper = configHelper;
 
@@ -42,7 +45,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                 string action = (Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) as CqControllerAttribute)?.Action;
                 if (action == null || _controllers.ContainsKey(action) || type.FullName == null) continue;
 
-                object[] parameters = {new CqContext(_khHost, _configHelper)};
+                object[] parameters = {_cqContext};
 
                 _controllers.Add(action,
                     Assembly.GetExecutingAssembly().CreateInstance(
@@ -84,6 +87,11 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         private readonly Dictionary<string, CqControllerBase> _controllers = new Dictionary<string, CqControllerBase>();
 
         #endregion
+
+        /// <summary>
+        /// CQHTTP上下文。
+        /// </summary>
+        private readonly CqContext _cqContext;
 
         /// <summary>
         /// Kaiheila主机。
