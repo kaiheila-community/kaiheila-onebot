@@ -16,7 +16,8 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// <summary>
         /// 初始化CQHTTP事件处理器。
         /// </summary>
-        /// <param name="logger">CQHTTP任务处理器日志记录器。</param>
+        /// <param name="khHost">Kaiheila主机。</param>
+        /// <param name="logger">CQHTTP事件处理器日志记录器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public CqEventHandler(
             KhHost khHost,
@@ -41,6 +42,9 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
 
         #endregion
 
+        /// <summary>
+        /// Kaiheila主机。
+        /// </summary>
         private readonly KhHost _khHost;
 
         /// <summary>
