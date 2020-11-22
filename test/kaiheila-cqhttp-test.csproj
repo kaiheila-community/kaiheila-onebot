@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\src\kaiheila-cqhttp.csproj" />
+  </ItemGroup>
+
 </Project>
