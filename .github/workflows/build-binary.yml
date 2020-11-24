@@ -55,7 +55,10 @@ jobs:
       with:
         dotnet-version: '5.0'
     - name: Publish
-      run: dotnet publish ./src/kaiheila-cqhttp.csproj -o ./bin/${{ fromJson(matrix.target).rid }}/publish -c Release -r ${{ fromJson(matrix.target).rid }} --self-contained true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true
+      run: dotnet publish ./src/kaiheila-cqhttp.csproj -o ./bin/${{ fromJson(matrix.target).rid }}/publish -c Release -r ${{ fromJson(matrix.target).rid }} --self-contained true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:IncludeNativeLibrariesForSelfExtract=true
+    - name: Remove pdb Files
+      shell: bash
+      run: rm bin/${{ fromJson(matrix.target).rid }}/publish/*.pdb
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
