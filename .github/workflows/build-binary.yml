@@ -23,9 +23,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./src/kaiheila-cqhttp.csproj --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test ./test/kaiheila-cqhttp-test.csproj --no-restore --verbosity normal
 
   publish:
     name: Publish
