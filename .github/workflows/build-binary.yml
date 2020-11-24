@@ -38,7 +38,7 @@ jobs:
         - '{"rid":"win-arm","os":"windows-latest"}'
         - '{"rid":"win-arm64","os":"windows-latest"}'
         - '{"rid":"linux-x64","os":"ubuntu-latest"}'
-        - '{"rid":"linux-x86","os":"ubuntu-latest"}'
+        - '{"rid":"linux-musl-x64","os":"ubuntu-latest"}'
         - '{"rid":"linux-arm","os":"ubuntu-latest"}'
         - '{"rid":"linux-arm64","os":"ubuntu-latest"}'
         - '{"rid":"osx-x64","os":"macos-latest"}'
