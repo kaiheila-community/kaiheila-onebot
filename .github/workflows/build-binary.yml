@@ -1,0 +1,64 @@
+name: Build Binary
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build and Test
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.x'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+
+  publish:
+    name: Publish
+    
+    strategy:
+      matrix:
+        rid:
+        - win-x64
+        - win-x86
+        - win-arm
+        - win-arm64
+        - linux-x64
+        - linux-musl-x64
+        - linux-arm
+        - linux-arm64
+        - osx-x64
+
+    needs: [build]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.x'
+    - name: Publish
+      run: dotnet publish ./src/kaiheila-cqhttp.csproj -o ./bin/${{ matrix.rid }}/publish -c Release -r ${{ matrix.rid }} --self-contained true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:PublishTrimmed=true
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.rid }} Binary
+        path: bin/${{ matrix.rid }}
