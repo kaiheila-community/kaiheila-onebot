@@ -1,5 +1,6 @@
 ﻿using System;
 using Kaiheila.Cqhttp.Cq;
+using Kaiheila.Cqhttp.Cq.Code;
 using Kaiheila.Cqhttp.Cq.Communication;
 using Kaiheila.Cqhttp.Cq.Handlers;
 using Kaiheila.Cqhttp.Kh;
@@ -57,6 +58,9 @@ namespace Kaiheila.Cqhttp
                     // CQHTTP Communications
                     services.AddSingleton<HttpHost>();
                     services.AddSingleton<WsHost>();
+
+                    // CQHTTP Messages
+                    services.AddSingleton<CqCodeHost>();
 
                     // Kaiheila
                     services.AddSingleton<KhHost>();
