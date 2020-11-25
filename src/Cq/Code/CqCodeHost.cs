@@ -51,17 +51,6 @@ namespace Kaiheila.Cqhttp.Cq.Code
 
         #endregion
 
-        #region Encoder
-
-        private static string Decode(string enc) => 
-            enc
-                .Replace("&#91;", "[")
-                .Replace("&#93;", "]")
-                .Replace("&#44;", ",")
-                .Replace("&amp;", "&");
-
-        #endregion
-
         #region Parser
 
         public CqCode Parse(string code)
@@ -85,7 +74,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
             try
             {
                 foreach (Match match in ParseParamsRegex.Matches(code))
-                    cqCode.Params.Add(match.Groups[1].Value, Decode(match.Groups[2].Value));
+                    cqCode.Params.Add(match.Groups[1].Value, CqCodeEncoder.Decode(match.Groups[2].Value));
             }
             catch (Exception e)
             {
