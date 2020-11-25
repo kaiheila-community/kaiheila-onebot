@@ -1,0 +1,29 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build and Test
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Docker Build
+      run: docker build -t kaiheila-cqhttp
+    - name: Export Image
+      run: |
+        mkdir /image
+        docker save kaiheila-cqhttp > /image/kaiheila-cqhttp-docker.tar
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: kaiheila-cqhttp-docker-${{ github.sha }}
+        path: /image
