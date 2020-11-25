@@ -13,7 +13,7 @@ namespace Kaiheila.Cqhttp.Test.Cq.Controllers
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()
                     .Where(type => Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) is not null)))
-                Assert.Equal(type.BaseType, typeof(CqControllerBase));
+                Assert.Equal(typeof(CqControllerBase), type.BaseType);
         }
     }
 }
