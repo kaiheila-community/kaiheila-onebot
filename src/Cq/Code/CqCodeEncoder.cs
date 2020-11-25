@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kaiheila.Cqhttp.Cq.Code
+﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    class CqCodeEncoder
+    public static class CqCodeEncoder
     {
+        public static string Decode(string enc) =>
+            enc
+                .Replace("&#91;", "[")
+                .Replace("&#93;", "]")
+                .Replace("&#44;", ",")
+                .Replace("&amp;", "&");
     }
 }
