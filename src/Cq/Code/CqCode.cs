@@ -9,7 +9,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    sealed class CqCodeTypeAttribute : Attribute
+    public sealed class CqCodeTypeAttribute : Attribute
     {
         public CqCodeTypeAttribute(string type) => Type = type;
 
