@@ -1,4 +1,5 @@
-﻿using Kaiheila.Cqhttp.Cq;
+﻿using System;
+using Kaiheila.Cqhttp.Cq;
 using Kaiheila.Cqhttp.Cq.Communication;
 using Kaiheila.Cqhttp.Cq.Handlers;
 using Kaiheila.Cqhttp.Kh;
@@ -19,6 +20,12 @@ namespace Kaiheila.Cqhttp
         /// <param name="args">应用程序初始化命令参数。</param>
         public static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += (sender, eventArgs) =>
+            {
+                Console.WriteLine("出现异常。这个异常是由kaiheila-cqhttp引起的。");
+                Console.WriteLine(eventArgs.ExceptionObject);
+            };
+
             IHost host = CreateHostBuilder(args).Build();
 
             _ = host.Services.GetService<CqHost>();
