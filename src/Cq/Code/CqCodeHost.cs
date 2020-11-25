@@ -82,8 +82,15 @@ namespace Kaiheila.Cqhttp.Cq.Code
 
             CqCode cqCode = new CqCode();
 
-            foreach (Match match in ParseParamsRegex.Matches(code))
-                cqCode.Params.Add(match.Groups[1].Value, Decode(match.Groups[2].Value));
+            try
+            {
+                foreach (Match match in ParseParamsRegex.Matches(code))
+                    cqCode.Params.Add(match.Groups[1].Value, Decode(match.Groups[2].Value));
+            }
+            catch (Exception e)
+            {
+                throw new CqCodeException("解析CQ码参数时出现错误。", e, CqCodePart.Params, code);
+            }
 
             return Assembly.GetExecutingAssembly()
                     .CreateInstance(
