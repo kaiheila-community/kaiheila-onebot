@@ -35,6 +35,18 @@ namespace Kaiheila.Cqhttp.Storage
         public CqHttpPostHostConfig CqHttpPostHostConfig { get; set; } = new CqHttpPostHostConfig();
 
         /// <summary>
+        /// CQHTTP WS主机配置。
+        /// </summary>
+        [JsonProperty("ws")]
+        public CqWsHostConfig CqWsHostConfig { get; set; } = new CqWsHostConfig();
+
+        /// <summary>
+        /// CQHTTP WS Reverse主机配置。
+        /// </summary>
+        [JsonProperty("ws_reverse")]
+        public CqWsReverseHostConfig CqWsReverseHostConfig { get; set; } = new CqWsReverseHostConfig();
+
+        /// <summary>
         /// CQHTTP 鉴权配置。
         /// </summary>
         [JsonProperty("auth")]
@@ -89,6 +101,44 @@ namespace Kaiheila.Cqhttp.Storage
         /// </remarks>
         [JsonProperty("timeout")]
         public int Timeout { get; set; }
+    }
+
+    /// <summary>
+    /// CQHTTP WS主机配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class CqWsHostConfig
+    {
+        /// <summary>
+        /// 是否启用WS。
+        /// </summary>
+        [JsonProperty("enable")]
+        public bool Enable { get; set; }
+
+        /// <summary>
+        /// WS服务器监听的IP。
+        /// </summary>
+        [JsonProperty("host")]
+        public string Host { get; set; } = "0.0.0.0";
+
+        /// <summary>
+        /// WS服务器监听的端口。
+        /// </summary>
+        [JsonProperty("port")]
+        public int Port { get; set; } = 6700;
+    }
+
+    /// <summary>
+    /// CQHTTP WS Reverse主机配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class CqWsReverseHostConfig
+    {
+        /// <summary>
+        /// 是否启用WS Reverse。
+        /// </summary>
+        [JsonProperty("enable")]
+        public bool Enable { get; set; }
     }
 
     /// <summary>

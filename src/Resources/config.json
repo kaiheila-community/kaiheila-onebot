@@ -9,7 +9,7 @@
  *
  * 配置文件内允许使用注释，总是在对象成员后跟随逗号以及不带双引号的键名。
  *
- * 注意：不要移除任何配置项。
+ * 注意：不推荐移除任何配置项，因为在版本升级时kaiheila-cqhttp的默认行为总是有可能发生改变。
  */
 {
   "cqhttp": {
@@ -17,9 +17,18 @@
      * CQHTTP配置。
      *
      * 使用此节点配置kaiheila-cqhttp与你的Bot服务进行连接的相关配置。
+     *
+     * 我们最为推荐的通信方式是ws（WebSocket），但是你可以根据自己的实际情况
+     * 选择最为适合的通信方式。
      */
     "http": {
-      "enable": true, // 是否启用HTTP。
+      /*
+       * 是否启用HTTP。
+       *
+       * 虽然我们推荐使用ws进行通信，但默认的配置文件会与onebot的默认配置保持一致。
+       * 默认情况下，只有HTTP通信会开启。
+       */
+      "enable": true,
 
       /*
        * HTTP服务器监听的IP。
@@ -30,11 +39,67 @@
 
       "port": "5700", // HTTP服务器监听的端口。
     },
+
+    /*
+     * CQHTTP HTTP POST配置。
+     */
     "http_post": {
+      /*
+       * HTTP POST事件上报 URL。
+       *
+       * 键为Url，值为对应Url的Secret。
+       */
+      "urls": {
+        // "http://127.0.0.1:5701": "secret",
+      },
 
+      /*
+       * 以秒为单位的HTTP POST超时时间。
+       *
+       * 0表示不设置超时。
+       */
+      "timeout": 0,
     },
-    "auth": {
 
+    /*
+     * CQHTTP WS配置。
+     *
+     * 这是我们推荐的通信方式。
+     */
+    "ws": {
+      /*
+       * 是否启用WS。
+       */
+      "enable": false,
+
+      /*
+       * WS服务器监听的IP。
+       * 使用"0.0.0.0"监听任何IP，
+       * 使用"127.0.0.1"监听本机环回。
+       */
+      "host": "0.0.0.0",
+
+      "port": "6700", // WS服务器监听的端口。
+    },
+
+    /*
+     * CQHTTP WS Reverse配置。
+     */
+    "ws_reverse": {
+      /*
+       * 是否启用WS Reverse。
+       */
+      "enable": false,
+    },
+
+    /*
+     * CQHTTP 鉴权配置。
+     */
+    "auth": {
+      /*
+       * CQHTTP 鉴权Access Token。
+       */
+      "access_token": "",
     },
   },
 }
