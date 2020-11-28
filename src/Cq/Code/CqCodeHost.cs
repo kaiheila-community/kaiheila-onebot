@@ -1,4 +1,4 @@
-﻿// References:
+// References:
 // https://github.com/frank-bots/cqhttp.Cyan/blob/master/cqhttp.Cyan/Globals.cs
 // https://github.com/frank-bots/cqhttp.Cyan/blob/master/cqhttp.Cyan/Messages/Serialization.cs
 
@@ -81,16 +81,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
                 throw new CqCodeException("解析CQ码参数时出现错误。", e, CqCodePart.Params, code);
             }
 
-            return Assembly.GetExecutingAssembly()
-                    .CreateInstance(
-                        _codeTypes[cqType].FullName!,
-                        false,
-                        BindingFlags.Default,
-                        null,
-                        new object[] {cqCode},
-                        null,
-                        null)
-                as CqCode;
+            return Activator.CreateInstance(_codeTypes[cqType], cqCode) as CqCode;
         }
 
         #endregion

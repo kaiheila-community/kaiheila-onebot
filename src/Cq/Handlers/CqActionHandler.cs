@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using Kaiheila.Cqhttp.Cq.Controllers;
 using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
@@ -45,18 +44,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                 string action = (Attribute.GetCustomAttribute(type, typeof(CqControllerAttribute)) as CqControllerAttribute)?.Action;
                 if (action == null || _controllers.ContainsKey(action) || type.FullName == null) continue;
 
-                object[] parameters = {_cqContext};
-
-                _controllers.Add(action,
-                    Assembly.GetExecutingAssembly().CreateInstance(
-                        type.FullName,
-                        false,
-                        BindingFlags.Default,
-                        null,
-                        parameters,
-                        null,
-                        null
-                    ) as CqControllerBase);
+                _controllers.Add(action, Activator.CreateInstance(type, _cqContext) as CqControllerBase);
             }
 
             _logger.LogInformation($"加载了{_controllers.Count}个CQHTTP任务控制器。");
