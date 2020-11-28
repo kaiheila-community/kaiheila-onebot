@@ -3,6 +3,7 @@ using Kaiheila.Cqhttp.Cq;
 using Kaiheila.Cqhttp.Cq.Code;
 using Kaiheila.Cqhttp.Cq.Communication;
 using Kaiheila.Cqhttp.Cq.Handlers;
+using Kaiheila.Cqhttp.Cq.Message;
 using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -61,6 +62,7 @@ namespace Kaiheila.Cqhttp
 
                     // CQHTTP Messages
                     services.AddSingleton<CqCodeHost>();
+                    services.AddSingleton<CqMessageHost>();
 
                     // Kaiheila
                     services.AddSingleton<KhHost>();
