@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -33,8 +34,16 @@ namespace Kaiheila.Cqhttp.Storage
             {
                 _logger.LogCritical("无法找到配置文件。");
 
-                // TODO: 使用预先配置完毕的配置文件替换自动生成的配置
-                File.WriteAllText(ConfigFilePath, JsonConvert.SerializeObject(new Config(), Formatting.Indented));
+                var configFileStream = File.OpenWrite(ConfigFilePath);
+                var configResourceStream = Assembly.GetExecutingAssembly()
+                    .GetManifestResourceStream("Kaiheila.Cqhttp.Resources.config.json");
+
+                if (configResourceStream is null)
+                    throw new ArgumentNullException(nameof(configResourceStream));
+
+                configResourceStream.CopyTo(configFileStream);
+                configFileStream.Close();
+                configResourceStream.Close();
 
                 _logger.LogInformation("已经生成了默认的配置文件。修改配置，然后重启应用。");
 
@@ -44,7 +53,7 @@ namespace Kaiheila.Cqhttp.Storage
 
             try
             {
-                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath));
+                Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath)) ?? new Config();
             }
             catch (Exception exception)
             {

@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Fleck" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Connections" Version="1.1.0" />
@@ -18,12 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\sdk\src\core\kaiheila-dotnet.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Resources.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
