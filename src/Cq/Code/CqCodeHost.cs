@@ -1,4 +1,4 @@
-// References:
+﻿// References:
 // https://github.com/frank-bots/cqhttp.Cyan/blob/master/cqhttp.Cyan/Globals.cs
 // https://github.com/frank-bots/cqhttp.Cyan/blob/master/cqhttp.Cyan/Messages/Serialization.cs
 
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Code
 {
@@ -82,6 +83,27 @@ namespace Kaiheila.Cqhttp.Cq.Code
             }
 
             return Activator.CreateInstance(_codeTypes[cqType], cqCode) as CqCode;
+        }
+
+        public CqCode Parse(JToken token)
+        {
+            try
+            {
+                if (token["type"] is null || token["type"].Type != JTokenType.String)
+                    throw new CqCodeException("解析CQ码时出现错误。", null, CqCodePart.Type, token.ToString());
+
+                string cqType = token["type"].ToObject<string>();
+
+                if (string.IsNullOrEmpty(cqType) || !_codeTypes.ContainsKey(cqType))
+                    throw new CqCodeException($"不支持的CQ码类型：{cqType}", null, CqCodePart.Type, token.ToString());
+
+                return Activator.CreateInstance(_codeTypes[cqType],
+                    new CqCode {Params = token["data"]?.ToObject<Dictionary<string, string>>()}) as CqCode;
+            }
+            catch (Exception e)
+            {
+                throw new CqCodeException("解析CQ码时出现错误。", e, CqCodePart.Struct, token.ToString());
+            }
         }
 
         #endregion
