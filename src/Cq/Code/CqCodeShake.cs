@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("shake")]
-    public class CqCodeShake : CqCode
+    [CqCode("shake")]
+    public class CqCodeShake : CqCodeBase
     {
-        public CqCodeShake(CqCode cqCode)
+        public CqCodeShake(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
         }

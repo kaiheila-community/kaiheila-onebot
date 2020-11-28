@@ -1,9 +1,9 @@
-namespace Kaiheila.Cqhttp.Cq.Code
+﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("at")]
-    public class CqCodeAt : CqCode
+    [CqCode("at")]
+    public class CqCodeAt : CqCodeBase
     {
-        public CqCodeAt(CqCode cqCode)
+        public CqCodeAt(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             Target = Params["qq"];

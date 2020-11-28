@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("record")]
-    public class CqCodeRecord : CqCode
+    [CqCode("record")]
+    public class CqCodeRecord : CqCodeBase
     {
-        public CqCodeRecord(CqCode cqCode)
+        public CqCodeRecord(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             File = Params["file"];

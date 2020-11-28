@@ -29,9 +29,9 @@ namespace Kaiheila.Cqhttp.Cq.Code
 
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()
-                    .Where(type => Attribute.GetCustomAttribute(type, typeof(CqCodeTypeAttribute)) is not null)))
+                    .Where(type => Attribute.GetCustomAttribute(type, typeof(CqCodeAttribute)) is not null)))
             {
-                string cqType = (Attribute.GetCustomAttribute(type, typeof(CqCodeTypeAttribute)) as CqCodeTypeAttribute)?.Type;
+                string cqType = (Attribute.GetCustomAttribute(type, typeof(CqCodeAttribute)) as CqCodeAttribute)?.Type;
                 if (cqType == null || _codeTypes.ContainsKey(cqType) || type.FullName == null) continue;
 
                 _codeTypes.Add(cqType, type);
@@ -55,7 +55,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
 
         #region Parser
 
-        public CqCode Parse(string code)
+        public CqCodeBase Parse(string code)
         {
             string cqType;
 
@@ -71,7 +71,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
             if (string.IsNullOrEmpty(cqType) || !_codeTypes.ContainsKey(cqType))
                 throw new CqCodeException($"不支持的CQ码类型：{cqType}", null, CqCodePart.Type, code);
 
-            CqCode cqCode = new CqCode();
+            CqCodeRaw cqCode = new CqCodeRaw();
 
             try
             {
@@ -83,10 +83,10 @@ namespace Kaiheila.Cqhttp.Cq.Code
                 throw new CqCodeException("解析CQ码参数时出现错误。", e, CqCodePart.Params, code);
             }
 
-            return Activator.CreateInstance(_codeTypes[cqType], cqCode) as CqCode;
+            return Activator.CreateInstance(_codeTypes[cqType], cqCode) as CqCodeBase;
         }
 
-        public CqCode Parse(JToken token)
+        public CqCodeBase Parse(JToken token)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
                     throw new CqCodeException($"不支持的CQ码类型：{cqType}", null, CqCodePart.Type, token.ToString());
 
                 return Activator.CreateInstance(_codeTypes[cqType],
-                    new CqCode {Params = token["data"]?.ToObject<Dictionary<string, string>>()}) as CqCode;
+                    new CqCodeRaw(token["data"]?.ToObject<Dictionary<string, string>>())) as CqCodeBase;
             }
             catch (Exception e)
             {

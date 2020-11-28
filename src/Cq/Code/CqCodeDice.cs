@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("dice")]
-    public class CqCodeDice : CqCode
+    [CqCode("dice")]
+    public class CqCodeDice : CqCodeBase
     {
-        public CqCodeDice(CqCode cqCode)
+        public CqCodeDice(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
         }

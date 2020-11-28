@@ -12,8 +12,8 @@ namespace Kaiheila.Cqhttp.Test.Cq.Code
         {
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()
-                    .Where(type => Attribute.GetCustomAttribute(type, typeof(CqCodeTypeAttribute)) is not null)))
-                Assert.Equal(typeof(CqCode), type.BaseType);
+                    .Where(type => Attribute.GetCustomAttribute(type, typeof(CqCodeAttribute)) is not null)))
+                Assert.Equal(typeof(CqCodeBase), type.BaseType);
         }
     }
 }

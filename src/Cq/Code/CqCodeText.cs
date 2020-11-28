@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("text")]
-    public class CqCodeText : CqCode
+    [CqCode("text")]
+    public class CqCodeText : CqCodeBase
     {
-        public CqCodeText(CqCode cqCode)
+        public CqCodeText(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             Text = Params["text"];

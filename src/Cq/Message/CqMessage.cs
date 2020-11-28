@@ -7,7 +7,7 @@ namespace Kaiheila.Cqhttp.Cq.Message
     {
         #region Data
 
-        public List<CqCode> CodeList = new List<CqCode>();
+        public List<CqCodeBase> CodeList = new List<CqCodeBase>();
 
         #endregion
 

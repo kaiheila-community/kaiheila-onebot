@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("image")]
-    public class CqCodeImage : CqCode
+    [CqCode("image")]
+    public class CqCodeImage : CqCodeBase
     {
-        public CqCodeImage(CqCode cqCode)
+        public CqCodeImage(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             File = Params["file"];

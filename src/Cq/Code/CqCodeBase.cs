@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Kaiheila.Cqhttp.Cq.Code
 {
-    public class CqCode
+    public abstract class CqCodeBase
     {
         public Dictionary<string, string> Params = new Dictionary<string, string>();
     }
 
     [AttributeUsage(AttributeTargets.Class)]
-    public sealed class CqCodeTypeAttribute : Attribute
+    public sealed class CqCodeAttribute : Attribute
     {
-        public CqCodeTypeAttribute(string type) => Type = type;
+        public CqCodeAttribute(string type) => Type = type;
 
         public readonly string Type;
     }

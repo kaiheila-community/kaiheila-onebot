@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("face")]
-    public class CqCodeFace : CqCode
+    [CqCode("face")]
+    public class CqCodeFace : CqCodeBase
     {
-        public CqCodeFace(CqCode cqCode)
+        public CqCodeFace(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             Id = ushort.Parse(Params["id"]);

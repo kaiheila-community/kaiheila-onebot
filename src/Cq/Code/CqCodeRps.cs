@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("rps")]
-    public class CqCodeRps : CqCode
+    [CqCode("rps")]
+    public class CqCodeRps : CqCodeBase
     {
-        public CqCodeRps(CqCode cqCode)
+        public CqCodeRps(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
         }

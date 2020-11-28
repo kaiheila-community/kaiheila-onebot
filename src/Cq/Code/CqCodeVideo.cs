@@ -1,9 +1,9 @@
 ﻿namespace Kaiheila.Cqhttp.Cq.Code
 {
-    [CqCodeType("video")]
-    public class CqCodeVideo : CqCode
+    [CqCode("video")]
+    public class CqCodeVideo : CqCodeBase
     {
-        public CqCodeVideo(CqCode cqCode)
+        public CqCodeVideo(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             File = Params["file"];
