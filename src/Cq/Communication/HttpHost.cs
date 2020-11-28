@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Composition;
 using System.Net;
 using Kaiheila.Cqhttp.Cq.Handlers;
 using Kaiheila.Cqhttp.Storage;
@@ -10,6 +11,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
     /// <summary>
     /// CQHTTP HTTP主机，负责OneBot协议中HTTP接口的监听和事件处理。
     /// </summary>
+    [Export]
     public class HttpHost : IDisposable
     {
         /// <summary>

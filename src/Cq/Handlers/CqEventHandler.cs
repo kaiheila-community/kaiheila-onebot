@@ -1,4 +1,5 @@
-﻿using System.Reactive.Linq;
+﻿using System.Composition;
+using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Kaiheila.Cqhttp.Cq.Events;
 using Kaiheila.Cqhttp.Kh;
@@ -11,6 +12,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
     /// <summary>
     /// CQHTTP事件处理器。
     /// </summary>
+    [Export]
     public class CqEventHandler
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Kaiheila.Cqhttp.Kh;
+﻿using System.Composition;
+using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
 
 namespace Kaiheila.Cqhttp.Cq
@@ -6,6 +7,7 @@ namespace Kaiheila.Cqhttp.Cq
     /// <summary>
     /// CQHTTP上下文。
     /// </summary>
+    [Export]
     public class CqContext
     {
         /// <summary>

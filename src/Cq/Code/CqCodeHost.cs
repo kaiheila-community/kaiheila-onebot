@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Composition;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
     /// <summary>
     /// CQ码主机。
     /// </summary>
+    [Export]
     public class CqCodeHost
     {
         /// <summary>

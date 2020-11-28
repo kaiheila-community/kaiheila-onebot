@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Composition;
+using System.Text.RegularExpressions;
 using Kaiheila.Cqhttp.Cq.Code;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -8,6 +9,7 @@ namespace Kaiheila.Cqhttp.Cq.Message
     /// <summary>
     /// CQ消息主机。
     /// </summary>
+    [Export]
     public class CqMessageHost
     {
         /// <summary>

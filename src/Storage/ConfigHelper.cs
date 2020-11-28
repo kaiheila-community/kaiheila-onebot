@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Composition;
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ namespace Kaiheila.Cqhttp.Storage
     /// <summary>
     /// 提供访问应用配置能力的帮助类型。
     /// </summary>
+    [Export]
     public sealed class ConfigHelper
     {
         /// <summary>

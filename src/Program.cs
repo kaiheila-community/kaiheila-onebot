@@ -1,11 +1,7 @@
 ﻿using System;
+using System.Composition;
+using System.Linq;
 using Kaiheila.Cqhttp.Cq;
-using Kaiheila.Cqhttp.Cq.Code;
-using Kaiheila.Cqhttp.Cq.Communication;
-using Kaiheila.Cqhttp.Cq.Handlers;
-using Kaiheila.Cqhttp.Cq.Message;
-using Kaiheila.Cqhttp.Kh;
-using Kaiheila.Cqhttp.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -44,28 +40,10 @@ namespace Kaiheila.Cqhttp
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    // Storage
-                    services.AddSingleton<ConfigHelper>();
-
-                    // CQHTTP
-                    services.AddSingleton<CqHost>();
-
-                    services.AddSingleton<CqContext>();
-
-                    // CQHTTP Handlers
-                    services.AddSingleton<CqActionHandler>();
-                    services.AddSingleton<CqEventHandler>();
-
-                    // CQHTTP Communications
-                    services.AddSingleton<HttpHost>();
-                    services.AddSingleton<WsHost>();
-
-                    // CQHTTP Messages
-                    services.AddSingleton<CqCodeHost>();
-                    services.AddSingleton<CqMessageHost>();
-
-                    // Kaiheila
-                    services.AddSingleton<KhHost>();
+                    foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
+                        x.GetTypes()
+                            .Where(type => Attribute.GetCustomAttribute(type, typeof(ExportAttribute)) is not null)))
+                        services.AddSingleton(type);
                 });
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace Kaiheila.Cqhttp.Kh
+﻿using System.Composition;
+
+namespace Kaiheila.Cqhttp.Kh
 {
     /// <summary>
     /// Kaiheila主机。
     /// </summary>
+    [Export]
     public class KhHost
     {
         /// <summary>

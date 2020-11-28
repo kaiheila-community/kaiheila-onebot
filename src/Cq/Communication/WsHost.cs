@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Composition;
 using Microsoft.Extensions.Logging;
 
 namespace Kaiheila.Cqhttp.Cq.Communication
@@ -6,6 +7,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
     /// <summary>
     /// CQHTTP WS主机，负责OneBot协议中WS接口的监听和事件处理。
     /// </summary>
+    [Export]
     public class WsHost : IDisposable
     {
         /// <summary>
