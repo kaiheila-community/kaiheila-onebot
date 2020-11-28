@@ -10,6 +10,12 @@ namespace Kaiheila.Cqhttp.Storage
     public class Config
     {
         /// <summary>
+        /// 是否使用严格模式。
+        /// </summary>
+        [JsonProperty("use_strict")]
+        public bool UseStrict { get; set; }
+
+        /// <summary>
         /// CQHTTP配置。
         /// </summary>
         [JsonProperty("cqhttp")]
