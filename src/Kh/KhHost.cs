@@ -1,4 +1,5 @@
 ﻿using System.Composition;
+using Kaiheila.Client;
 
 namespace Kaiheila.Cqhttp.Kh
 {
@@ -11,6 +12,6 @@ namespace Kaiheila.Cqhttp.Kh
         /// <summary>
         /// Kaiheila机器人。
         /// </summary>
-        public readonly Bot Bot;
+        public readonly IBot Bot;
     }
 }
