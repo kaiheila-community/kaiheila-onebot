@@ -54,7 +54,7 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
 
         public override JToken Process(JToken payload)
         {
-            Task<List<KhUser>> getFriendsAsync = _context.KhHost.Bot.GetFriends();
+            Task<List<KhUser>> getFriendsAsync = _context.KhHost.Bot.GetFriends(KhFriendsType.Friend);
             getFriendsAsync.Wait();
             List<KhUser> users = getFriendsAsync.Result;
             return JArray.FromObject(users.Select(user => new
