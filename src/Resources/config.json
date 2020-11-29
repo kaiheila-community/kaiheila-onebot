@@ -25,6 +25,12 @@
 
   "kaiheila": {
     "mode": 10,
+
+    "v2": {
+      "host": "127.0.0.1",
+      "port": "7700",
+    },
+
     "auth": {
       "cookie_auth": "",
     },

@@ -51,6 +51,12 @@ namespace Kaiheila.Cqhttp.Storage
         public KhClientMode KhClientMode { get; set; } = KhClientMode.WebHook;
 
         /// <summary>
+        /// Kaiheila V2客户端配置。
+        /// </summary>
+        [JsonProperty("v2")]
+        public KhClientV2Config KhClientV2Config { get; set; } = new KhClientV2Config();
+
+        /// <summary>
         /// Kaiheila鉴权配置。
         /// </summary>
         [JsonProperty("auth")]
@@ -65,6 +71,25 @@ namespace Kaiheila.Cqhttp.Storage
         WebHook = 0,
         WebSocket = 1,
         V2 = 10
+    }
+
+    /// <summary>
+    /// Kaiheila V2客户端配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class KhClientV2Config
+    {
+        /// <summary>
+        /// WS客户端连接的IP。
+        /// </summary>
+        [JsonProperty("host")]
+        public string Host { get; set; } = "127.0.0.1";
+
+        /// <summary>
+        /// WS客户端连接的端口。
+        /// </summary>
+        [JsonProperty("port")]
+        public int Port { get; set; } = 7700;
     }
 
     /// <summary>
