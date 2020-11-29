@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using Kaiheila.Cqhttp.Cq.Controllers;
 using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
@@ -144,5 +145,19 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
 
             return builder;
         }
+    }
+
+    [Serializable]
+    public class CqControllerException : Exception
+    {
+        public CqControllerException(
+            int retCode = 100,
+            string message = "",
+            Exception inner = null) : base(message, inner)
+        {
+            RetCode = retCode;
+        }
+
+        public readonly int RetCode;
     }
 }
