@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Composition;
 using System.IO;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Kaiheila.Cqhttp.Cq.Controllers;
 using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
@@ -60,12 +61,58 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// </summary>
         /// <param name="action">要执行的任务。</param>
         /// <param name="payload">JSON报文。</param>
-        public void Process(string action, JObject payload)
+        public JToken Process(string action, JToken payload)
         {
+            if (action.EndsWith("_async"))
+            {
+                action = action.Replace("_async", "");
+                Task.Factory.StartNew(() =>
+                {
+                    try
+                    {
+                        if (!_controllers.TryGetValue(action, out CqControllerBase ctrl))
+                        {
+                            // TODO: Log
+                            return;
+                        }
+                        
+                        ctrl.Process(payload);
+                    }
+                    catch (CqControllerException e)
+                    {
+                        // TODO: Log
+                    }
+                });
+
+                return JToken.FromObject(new
+                {
+                    status = "async",
+                    retcode = 1
+                });
+            }
+
             if (!_controllers.TryGetValue(action, out CqControllerBase controller))
                 throw new HttpRequestException(null, null, HttpStatusCode.NotFound);
 
-            controller.Process(payload);
+            try
+            {
+                return JToken.FromObject(new
+                {
+                    status = "ok",
+                    retcode = 0,
+                    data = controller.Process(payload)
+                });
+            }
+            catch (CqControllerException e)
+            {
+                // TODO: Log
+
+                return JToken.FromObject(new
+                {
+                    status = "failed",
+                    retcode = e.RetCode
+                });
+            }
         }
 
         #endregion
@@ -120,6 +167,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
                             }
                             catch (Exception e)
                             {
+                                context.Response.SetStatusCode(HttpStatusCode.BadRequest);
                                 return;
                             }
                             break;
