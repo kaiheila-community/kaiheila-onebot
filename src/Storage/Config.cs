@@ -10,16 +10,74 @@ namespace Kaiheila.Cqhttp.Storage
     public class Config
     {
         /// <summary>
-        /// 是否使用严格模式。
+        /// 指定兼容性模式。
         /// </summary>
-        [JsonProperty("use_strict")]
-        public bool UseStrict { get; set; }
+        [JsonProperty("compatibility_mode")]
+        public CompatibilityMode CompatibilityMode { get; set; } = CompatibilityMode.Off;
+
+        /// <summary>
+        /// Kaiheila配置。
+        /// </summary>
+        [JsonProperty("kaiheila")]
+        public KhConfig KhConfig { get; set; } = new KhConfig();
 
         /// <summary>
         /// CQHTTP配置。
         /// </summary>
         [JsonProperty("cqhttp")]
         public CqConfig CqConfig { get; set; } = new CqConfig();
+    }
+
+    /// <summary>
+    /// 兼容性模式。
+    /// </summary>
+    public enum CompatibilityMode
+    {
+        Off = 0,
+        OneBot = 20,
+        Strict = 30
+    }
+
+    /// <summary>
+    /// Kaiheila配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class KhConfig
+    {
+        /// <summary>
+        /// 指定Kaiheila客户端模式。
+        /// </summary>
+        [JsonProperty("mode")]
+        public KhClientMode KhClientMode { get; set; } = KhClientMode.WebHook;
+
+        /// <summary>
+        /// Kaiheila鉴权配置。
+        /// </summary>
+        [JsonProperty("auth")]
+        public KhAuthConfig KhAuthConfig { get; set; } = new KhAuthConfig();
+    }
+
+    /// <summary>
+    /// Kaiheila客户端模式。
+    /// </summary>
+    public enum KhClientMode
+    {
+        WebHook = 0,
+        WebSocket = 1,
+        V2 = 10
+    }
+
+    /// <summary>
+    /// Kaiheila鉴权配置。
+    /// </summary>
+    [JsonObject(MemberSerialization.OptIn)]
+    public class KhAuthConfig
+    {
+        /// <summary>
+        /// Kaiheila鉴权使用的Cookie中的auth字段。
+        /// </summary>
+        [JsonProperty("cookie_auth")]
+        public string CookieAuth { get; set; } = "";
     }
 
     /// <summary>
@@ -148,7 +206,7 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP 鉴权配置。
+    /// CQHTTP鉴权配置。
     /// </summary>
     public class CqAuthConfig
     {

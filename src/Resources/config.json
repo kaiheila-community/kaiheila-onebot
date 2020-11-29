@@ -13,7 +13,7 @@
  */
 {
   /*
-   * 是否使用严格模式。
+   * 指定兼容性模式。
    *
    * 启用严格模式将会导致任何kaiheila-cqhttp不支持的内容均抛出异常，
    * 这些内容可以是不支持的CqCode或HTTP API路由。
@@ -21,7 +21,14 @@
    * 如果你使用的是面向OneBot开发的Bot框架，则你可能需要关闭严格模式以保证应用正常运行，
    * 但如果你面向kaiheila-cqhttp进行开发，我们建议你启用严格模式。
    */
-  "use_strict": false,
+  "compatibility_mode": 0,
+
+  "kaiheila": {
+    "mode": 10,
+    "auth": {
+      "cookie_auth": "",
+    },
+  },
   
   /*
    * CQHTTP配置。
