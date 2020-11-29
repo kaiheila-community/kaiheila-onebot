@@ -82,7 +82,7 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// </summary>
         public void Dispose()
         {
-            _server.Dispose();
+            _server?.Dispose();
         }
 
         #region WebSocket
