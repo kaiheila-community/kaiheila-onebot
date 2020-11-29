@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\sdk\src\client-v2\kaiheila-dotnet-client-v2.csproj" />
     <ProjectReference Include="..\sdk\src\core\kaiheila-dotnet.csproj" />
   </ItemGroup>
 
