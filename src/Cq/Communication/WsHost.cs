@@ -39,7 +39,11 @@ namespace Kaiheila.Cqhttp.Cq.Communication
             _logger.LogInformation("初始化CQHTTP WS主机。");
 
             _server = new WebSocketServer(
-                $"ws://{_configHelper.Config.CqConfig.CqWsHostConfig.Host}:{_configHelper.Config.CqConfig.CqWsHostConfig.Port}");
+                $"ws://{_configHelper.Config.CqConfig.CqWsHostConfig.Host}:{_configHelper.Config.CqConfig.CqWsHostConfig.Port}")
+            {
+                RestartAfterListenError = true
+            };
+
 
             _server.Start(socket => socket.OnMessage = async s => await SocketOnMessage(socket, s));
 
