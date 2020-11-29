@@ -27,6 +27,7 @@ namespace Kaiheila.Cqhttp.Cq
             _wsHost = wsHost;
 
             if (configHelper.Config.CqConfig.CqHttpHostConfig.Enable) _httpHost.Run();
+            if (configHelper.Config.CqConfig.CqWsHostConfig.Enable) _wsHost.Run();
         }
 
         #region Communication Hosts
