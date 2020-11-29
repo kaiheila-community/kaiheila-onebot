@@ -53,7 +53,7 @@ namespace Kaiheila.Cqhttp.Kh
 
         public void Dispose()
         {
-            Bot.Dispose();
+            Bot?.Dispose();
         }
 
         #endregion
