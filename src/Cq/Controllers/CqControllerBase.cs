@@ -22,7 +22,7 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
         /// 执行任务。
         /// </summary>
         /// <param name="payload">JSON报文。</param>
-        public abstract void Process(JObject payload);
+        public abstract JToken Process(JToken payload);
 
         /// <summary>
         /// 任务上下文。
