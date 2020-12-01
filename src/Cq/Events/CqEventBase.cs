@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Events
 {
     public class CqEventBase
     {
-        public Dictionary<string, string> Params = new Dictionary<string, string>();
+        public JObject Result;
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
