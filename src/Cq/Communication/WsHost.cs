@@ -52,10 +52,12 @@ namespace Kaiheila.Cqhttp.Cq.Communication
             _server.Start(socket =>
             {
                 _sockets.Add(socket);
+                _logger.LogInformation($"WebSocket客户端接入。现在的客户端数量：{_sockets.Count}");
                 socket.OnMessage = async s => await SocketOnMessage(socket, s);
                 socket.OnClose = () =>
                 {
                     if (_sockets.Contains(socket)) _sockets.Remove(socket);
+                    _logger.LogInformation($"WebSocket客户端关闭。现在的客户端数量：{_sockets.Count}");
                 };
             });
 
