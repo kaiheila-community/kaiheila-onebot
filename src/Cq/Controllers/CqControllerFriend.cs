@@ -29,19 +29,6 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
         }
     }
 
-    [CqController("get_stranger_info")]
-    public class CqControllerGetStrangerInfo : CqControllerBase
-    {
-        public CqControllerGetStrangerInfo(CqContext context) : base(context)
-        {
-        }
-
-        public override JToken Process(JToken payload)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
     [CqController("get_friend_list")]
     public class CqControllerGetFriendList : CqControllerBase
     {
