@@ -1,4 +1,7 @@
-﻿using System.Composition;
+﻿using System;
+using System.Collections.Generic;
+using System.Composition;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Kaiheila.Cqhttp.Cq.Events;
@@ -30,17 +33,41 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
             _logger = logger;
             _configHelper = configHelper;
 
+            _logger.LogInformation("初始化CQHTTP事件处理器。");
+
+            foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
+                x.GetTypes()
+                    .Where(type => Attribute.GetCustomAttribute(type, typeof(CqEventAttribute)) is not null)))
+            {
+                Type khEventType = (Attribute.GetCustomAttribute(type, typeof(CqEventAttribute)) as CqEventAttribute)?.Type;
+                if (khEventType == null || _eventTypes.ContainsKey(khEventType) || type.FullName == null) continue;
+
+                _eventTypes.Add(khEventType, type);
+            }
+
             khHost.Bot.Event.Select(Process).Subscribe(Event);
+
+            _logger.LogInformation($"加载了{_eventTypes.Count}个CQHTTP事件类型。");
         }
 
         #region Event
 
         private CqEventBase Process(KhEventBase khEvent)
         {
-            return new CqEventBase();
+            if (!_eventTypes.TryGetValue(khEvent.GetType(), out Type eventType))
+                return null;
+
+            CqEventBase cqEvent = Activator.CreateInstance(eventType, khEvent) as CqEventBase;
+            return cqEvent;
         }
 
         public Subject<CqEventBase> Event = new Subject<CqEventBase>();
+
+        #endregion
+
+        #region Event Types
+
+        private readonly Dictionary<Type, Type> _eventTypes = new Dictionary<Type, Type>();
 
         #endregion
 
