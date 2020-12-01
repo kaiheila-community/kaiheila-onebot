@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Composition;
 using System.Threading.Tasks;
 using Fleck;
+using Kaiheila.Cqhttp.Cq.Events;
 using Kaiheila.Cqhttp.Cq.Handlers;
 using Kaiheila.Cqhttp.Storage;
 using Microsoft.Extensions.Logging;
@@ -20,14 +22,17 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// </summary>
         /// <param name="logger">CQHTTP WS主机日志记录器。</param>
         /// <param name="cqActionHandler">CQHTTP任务处理器。</param>
+        /// <param name="cqEventHandler">CQHTTP事件处理器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public WsHost(
             ILogger<WsHost> logger,
             CqActionHandler cqActionHandler,
+            CqEventHandler cqEventHandler,
             ConfigHelper configHelper)
         {
             _logger = logger;
             _cqActionHandler = cqActionHandler;
+            _cqEventHandler = cqEventHandler;
             _configHelper = configHelper;
         }
 
@@ -44,12 +49,27 @@ namespace Kaiheila.Cqhttp.Cq.Communication
                 RestartAfterListenError = true
             };
 
+            _server.Start(socket =>
+            {
+                _sockets.Add(socket);
+                socket.OnMessage = async s => await SocketOnMessage(socket, s);
+                socket.OnClose = () =>
+                {
+                    if (_sockets.Contains(socket)) _sockets.Remove(socket);
+                };
+            });
 
-            _server.Start(socket => socket.OnMessage = async s => await SocketOnMessage(socket, s));
+            _cqEventHandler.Event.Subscribe(OnCqEvent);
 
             _logger.LogInformation(
                 $"CQHTTP WS主机已经开始在ws://{_configHelper.Config.CqConfig.CqWsHostConfig.Host}:{_configHelper.Config.CqConfig.CqWsHostConfig.Port}上监听。");
         }
+
+        #region Event
+
+        private void OnCqEvent(CqEventBase obj) => _sockets.ForEach(x => x.Send(obj.Result.ToString()));
+
+        #endregion
 
         private async Task SocketOnMessage(IWebSocketConnection socket, string raw)
         {
@@ -89,6 +109,8 @@ namespace Kaiheila.Cqhttp.Cq.Communication
 
         private WebSocketServer _server;
 
+        private List<IWebSocketConnection> _sockets = new List<IWebSocketConnection>();
+
         #endregion
 
         /// <summary>
@@ -100,6 +122,11 @@ namespace Kaiheila.Cqhttp.Cq.Communication
         /// CQHTTP任务处理器。
         /// </summary>
         private readonly CqActionHandler _cqActionHandler;
+
+        /// <summary>
+        /// CQHTTP事件处理器。
+        /// </summary>
+        private readonly CqEventHandler _cqEventHandler;
 
         /// <summary>
         /// 提供访问应用配置能力的帮助类型。
