@@ -44,8 +44,18 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
             {
                 user_id = user.Id,
                 nickname = user.Username,
+                card = "",
                 sex = "unknown",
-                age = 18
+                age = 18,
+                area = "",
+                join_time = 0,
+                last_sent_time = 0,
+                level = "",
+                role = "member",
+                unfriendly = false,
+                title = "",
+                title_expire_time = 0,
+                card_changeable = false
             });
         }
     }
