@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Controllers
@@ -30,7 +31,10 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
             {
                 app_name = "kaiheila-cqhttp",
                 app_version = Assembly.GetExecutingAssembly().GetName().Version?.ToString(),
-                protocol_version = "v11"
+                protocol_version = "v11",
+                coolq_edition = "pro",
+                coolq_directory = AppContext.BaseDirectory,
+                plugin_version = Assembly.GetExecutingAssembly().GetName().Version?.ToString()
             });
     }
 
