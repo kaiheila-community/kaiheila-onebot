@@ -1,4 +1,5 @@
 ﻿using System.Composition;
+using Kaiheila.Cqhttp.Cq.Message;
 using Kaiheila.Cqhttp.Kh;
 using Kaiheila.Cqhttp.Storage;
 
@@ -15,10 +16,15 @@ namespace Kaiheila.Cqhttp.Cq
         /// </summary>
         /// <param name="khHost">Kaiheila主机。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
-        public CqContext(KhHost khHost, ConfigHelper configHelper)
+        /// <param name="cqMessageHost">CQ消息主机。</param>
+        public CqContext(
+            KhHost khHost,
+            ConfigHelper configHelper,
+            CqMessageHost cqMessageHost)
         {
             KhHost = khHost;
             ConfigHelper = configHelper;
+            CqMessageHost = cqMessageHost;
         }
 
         /// <summary>
@@ -30,5 +36,10 @@ namespace Kaiheila.Cqhttp.Cq
         /// 提供访问应用配置能力的帮助类型。
         /// </summary>
         public readonly ConfigHelper ConfigHelper;
+
+        /// <summary>
+        /// CQ消息主机。
+        /// </summary>
+        public readonly CqMessageHost CqMessageHost;
     }
 }
