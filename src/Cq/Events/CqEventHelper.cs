@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Events
@@ -32,7 +32,7 @@ namespace Kaiheila.Cqhttp.Cq.Events
             {
                 time = ConvertDateToJsTicks(DateTime.UtcNow),
                 self_id = 0,
-                post_type = type
+                post_type = GetPostTypeString(type)
             });
 
         public static string GetPostTypeString(CqEventPostType type) =>
