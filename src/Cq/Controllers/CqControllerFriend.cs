@@ -11,14 +11,11 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerGetLoginInfo(CqContext context) : base(context)
         {
-            _context = context;
         }
-
-        private readonly CqContext _context;
 
         public override JToken Process(JToken payload)
         {
-            Task<KhUser> getUserStateAsync = _context.KhHost.Bot.GetUserState();
+            Task<KhUser> getUserStateAsync = Context.KhHost.Bot.GetUserState();
             getUserStateAsync.Wait();
             KhUser user = getUserStateAsync.Result;
             return JObject.FromObject(new
@@ -34,14 +31,11 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerGetFriendList(CqContext context) : base(context)
         {
-            _context = context;
         }
-
-        private readonly CqContext _context;
 
         public override JToken Process(JToken payload)
         {
-            Task<List<KhUser>> getFriendsAsync = _context.KhHost.Bot.GetFriends(KhFriendsType.Friend);
+            Task<List<KhUser>> getFriendsAsync = Context.KhHost.Bot.GetFriends(KhFriendsType.Friend);
             getFriendsAsync.Wait();
             List<KhUser> users = getFriendsAsync.Result;
             return JArray.FromObject(users.Select(user => new

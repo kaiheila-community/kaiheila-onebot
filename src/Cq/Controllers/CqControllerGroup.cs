@@ -9,14 +9,11 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerGetStrangerInfo(CqContext context) : base(context)
         {
-            _cqContext = context;
         }
-
-        private readonly CqContext _cqContext;
 
         public override JToken Process(JToken payload)
         {
-            Task<KhUser> getUserStateAsync = _cqContext.KhHost.Bot.GetUserState(long.Parse(payload["user_id"]?.ToObject<string>()!));
+            Task<KhUser> getUserStateAsync = Context.KhHost.Bot.GetUserState(long.Parse(payload["user_id"]?.ToObject<string>()!));
             getUserStateAsync.Wait();
             KhUser user = getUserStateAsync.Result;
 
@@ -35,14 +32,11 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerGetGroupMemberInfo(CqContext context) : base(context)
         {
-            _cqContext = context;
         }
-
-        private readonly CqContext _cqContext;
 
         public override JToken Process(JToken payload)
         {
-            Task<KhUser> getUserStateAsync = _cqContext.KhHost.Bot.GetUserState(long.Parse(payload["user_id"]?.ToObject<string>()!));
+            Task<KhUser> getUserStateAsync = Context.KhHost.Bot.GetUserState(long.Parse(payload["user_id"]?.ToObject<string>()!));
             getUserStateAsync.Wait();
             KhUser user = getUserStateAsync.Result;
 
@@ -61,14 +55,11 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerGetGroupInfo(CqContext context) : base(context)
         {
-            _cqContext = context;
         }
-
-        private readonly CqContext _cqContext;
 
         public override JToken Process(JToken payload)
         {
-            Task<KhChannel> getChannelStateAsync = _cqContext.KhHost.Bot.GetChannelState(long.Parse(payload["group_id"]?.ToObject<string>()!));
+            Task<KhChannel> getChannelStateAsync = Context.KhHost.Bot.GetChannelState(long.Parse(payload["group_id"]?.ToObject<string>()!));
             getChannelStateAsync.Wait();
             KhChannel channel = getChannelStateAsync.Result;
 

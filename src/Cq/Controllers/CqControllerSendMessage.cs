@@ -20,10 +20,7 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
     {
         public CqControllerSendGroupMessage(CqContext context) : base(context)
         {
-            _context = context;
         }
-
-        private readonly CqContext _context;
 
         public override JToken Process(JToken payload)
         {
@@ -33,7 +30,7 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
             //        ? payload["message"]?.ToObject<string>()
             //        : _context.CqMessageHost.Parse(payload["message"]?.ToObject<string>()).ToString());
 
-            _context.KhHost.Bot.SendMessage(
+            Context.KhHost.Bot.SendMessage(
                 long.Parse(payload["group_id"]?.ToObject<string>()!),
                 payload["message"]?.ToObject<string>());
 

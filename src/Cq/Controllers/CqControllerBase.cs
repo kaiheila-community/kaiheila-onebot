@@ -13,9 +13,9 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
         /// 初始化CQHTTP任务控制器。
         /// </summary>
         /// <param name="context">任务上下文。</param>
-        public CqControllerBase(CqContext context)
+        protected CqControllerBase(CqContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
         /// <summary>
         /// 任务上下文。
         /// </summary>
-        private readonly CqContext _context;
+        protected readonly CqContext Context;
     }
 
     /// <summary>
