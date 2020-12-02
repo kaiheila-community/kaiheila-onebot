@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Kaiheila.Cqhttp.Cq.Code;
+using Kaiheila.Cqhttp.Cq.Codes;
 using Xunit;
 
 namespace Kaiheila.Cqhttp.Test.Cq.Code

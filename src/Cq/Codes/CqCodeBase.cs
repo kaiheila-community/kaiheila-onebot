@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Kaiheila.Events;
 
-namespace Kaiheila.Cqhttp.Cq.Code
+namespace Kaiheila.Cqhttp.Cq.Codes
 {
     public abstract class CqCodeBase
     {

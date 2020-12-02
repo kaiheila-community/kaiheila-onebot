@@ -1,4 +1,4 @@
-﻿namespace Kaiheila.Cqhttp.Cq.Code
+﻿namespace Kaiheila.Cqhttp.Cq.Codes
 {
     [CqCode("rps")]
     public class CqCodeRps : CqCodeBase

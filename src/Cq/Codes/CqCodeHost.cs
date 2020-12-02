@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Code
+namespace Kaiheila.Cqhttp.Cq.Codes
 {
     /// <summary>
     /// CQ码主机。

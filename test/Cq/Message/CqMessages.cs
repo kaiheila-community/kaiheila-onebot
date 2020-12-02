@@ -1,4 +1,4 @@
-﻿using Kaiheila.Cqhttp.Cq.Code;
+﻿using Kaiheila.Cqhttp.Cq.Codes;
 using Kaiheila.Cqhttp.Cq.Message;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;

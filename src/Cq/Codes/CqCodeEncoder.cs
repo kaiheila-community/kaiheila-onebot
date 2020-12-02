@@ -1,7 +1,7 @@
 ﻿// References:
 // https://github.com/frank-bots/cqhttp.Cyan/blob/master/cqhttp.Cyan/Globals.cs
 
-namespace Kaiheila.Cqhttp.Cq.Code
+namespace Kaiheila.Cqhttp.Cq.Codes
 {
     public static class CqCodeEncoder
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Kaiheila.Cqhttp.Cq.Code;
+using Kaiheila.Cqhttp.Cq.Codes;
 
 namespace Kaiheila.Cqhttp.Cq.Message
 {

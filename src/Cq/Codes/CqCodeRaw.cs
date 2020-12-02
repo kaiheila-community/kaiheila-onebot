@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Kaiheila.Cqhttp.Cq.Code
+namespace Kaiheila.Cqhttp.Cq.Codes
 {
     [CqCode("raw")]
     public class CqCodeRaw : CqCodeBase

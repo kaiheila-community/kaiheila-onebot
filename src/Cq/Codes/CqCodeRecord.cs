@@ -1,16 +1,16 @@
-﻿namespace Kaiheila.Cqhttp.Cq.Code
+﻿namespace Kaiheila.Cqhttp.Cq.Codes
 {
-    [CqCode("video")]
-    public class CqCodeVideo : CqCodeBase
+    [CqCode("record")]
+    public class CqCodeRecord : CqCodeBase
     {
-        public CqCodeVideo(CqCodeRaw cqCode)
+        public CqCodeRecord(CqCodeRaw cqCode)
         {
             Params = cqCode.Params;
             File = Params["file"];
             Url = Params.ContainsKey("url") ? Params["url"] : string.Empty;
         }
 
-        public CqCodeVideo(string file, string url)
+        public CqCodeRecord(string file, string url)
         {
             File = file;
             Url = url;
@@ -20,6 +20,6 @@
 
         public readonly string Url;
 
-        public override string ConvertToString() => $"（视频：{Url} ）";
+        public override string ConvertToString() => $"（语音：{Url} ）";
     }
 }

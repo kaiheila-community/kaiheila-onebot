@@ -1,6 +1,6 @@
 ﻿using System.Composition;
 using System.Text.RegularExpressions;
-using Kaiheila.Cqhttp.Cq.Code;
+using Kaiheila.Cqhttp.Cq.Codes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
