@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using Kaiheila.Events;
 
 namespace Kaiheila.Cqhttp.Cq.Code
 {
     public abstract class CqCodeBase
     {
         public Dictionary<string, string> Params = new Dictionary<string, string>();
+
+        public virtual KhEventBase ConvertToKhEvent() =>
+            new KhEventMessage
+            {
+                Content = ConvertToString()
+            };
+
+        public abstract string ConvertToString();
     }
 
     [AttributeUsage(AttributeTargets.Class)]
