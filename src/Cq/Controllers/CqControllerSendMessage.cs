@@ -24,13 +24,13 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
 
         public override JToken Process(JToken payload)
         {
-            //_context.KhHost.Bot.SendMessage(
+            //_context.KhHost.Bot.SendTextMessage(
             //    long.Parse(payload["group_id"]?.ToObject<string>()!),
             //    payload["auto_escape"].ToObject<bool>()
             //        ? payload["message"]?.ToObject<string>()
             //        : _context.CqMessageHost.Parse(payload["message"]?.ToObject<string>()).ToString());
 
-            Context.KhHost.Bot.SendMessage(
+            Context.KhHost.Bot.SendTextMessage(
                 long.Parse(payload["group_id"]?.ToObject<string>()!),
                 payload["message"]?.ToObject<string>());
 
