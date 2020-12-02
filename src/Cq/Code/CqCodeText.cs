@@ -15,5 +15,7 @@
         }
 
         public readonly string Text;
+
+        public override string ConvertToString() => Text;
     }
 }

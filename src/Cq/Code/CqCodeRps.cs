@@ -7,5 +7,7 @@
         {
             Params = cqCode.Params;
         }
+
+        public override string ConvertToString() => "（猜拳）";
     }
 }

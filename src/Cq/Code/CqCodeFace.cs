@@ -15,5 +15,7 @@
         }
 
         public readonly ushort Id;
+
+        public override string ConvertToString() => $"（表情：{Id} ）";
     }
 }

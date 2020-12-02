@@ -15,5 +15,7 @@
         }
 
         public readonly string Target;
+
+        public override string ConvertToString() => $"（@：{Target} ）";
     }
 }

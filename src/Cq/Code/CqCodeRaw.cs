@@ -14,5 +14,7 @@ namespace Kaiheila.Cqhttp.Cq.Code
         {
             Params = @params;
         }
+
+        public override string ConvertToString() => "（不支持的消息）";
     }
 }

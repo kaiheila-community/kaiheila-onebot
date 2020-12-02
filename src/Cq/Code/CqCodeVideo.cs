@@ -7,13 +7,19 @@
         {
             Params = cqCode.Params;
             File = Params["file"];
+            Url = Params.ContainsKey("url") ? Params["url"] : string.Empty;
         }
 
-        public CqCodeVideo(string file)
+        public CqCodeVideo(string file, string url)
         {
             File = file;
+            Url = url;
         }
 
         public readonly string File;
+
+        public readonly string Url;
+
+        public override string ConvertToString() => $"（视频：{Url} ）";
     }
 }
