@@ -3,12 +3,12 @@ using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Events
 {
-    [CqEvent(typeof(KhEventMessage))]
+    [CqEvent(typeof(KhEventTextMessage))]
     public class CqEventGroupMessage : CqEventBase
     {
         public CqEventGroupMessage(CqContext context, KhEventBase eventBase) : base(context)
         {
-            if (!(eventBase is KhEventMessage eventMessage)) return;
+            if (!(eventBase is KhEventTextMessage eventMessage)) return;
 
             Result = _context.CreateEventObject(CqEventPostType.Message);
             Result["message_type"] = "group";

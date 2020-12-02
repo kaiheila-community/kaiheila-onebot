@@ -9,7 +9,7 @@ namespace Kaiheila.Cqhttp.Cq.Codes
         public Dictionary<string, string> Params = new Dictionary<string, string>();
 
         public virtual KhEventBase ConvertToKhEvent() =>
-            new KhEventMessage
+            new KhEventTextMessage
             {
                 Content = ConvertToString()
             };
