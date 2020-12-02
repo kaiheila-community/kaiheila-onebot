@@ -13,7 +13,7 @@ namespace Kaiheila.Cqhttp.Test.Cq.Message
         private const string StringToken = "[CQ:face,id=178]看看我刚拍的照片[CQ:image,file=123.jpg]";
 
         // ReSharper disable once InconsistentNaming
-        private readonly JArray ArrayToken = JArray.FromObject(
+        private static readonly JArray ArrayToken = JArray.FromObject(
             new object[]
             {
                 new
@@ -62,9 +62,9 @@ namespace Kaiheila.Cqhttp.Test.Cq.Message
         }
 
         [Fact]
-        public void ParseStringMessage() => ParseMessage(JValue.CreateString(StringToken));
+        public static void ParseStringMessage() => ParseMessage(JValue.CreateString(StringToken));
 
         [Fact]
-        public void ParseArrayMessage() => ParseMessage(ArrayToken);
+        public static void ParseArrayMessage() => ParseMessage(ArrayToken);
     }
 }

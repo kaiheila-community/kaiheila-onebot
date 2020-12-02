@@ -8,7 +8,7 @@ namespace Kaiheila.Cqhttp.Test.Cq.Controllers
     public class CqControllers
     {
         [Fact]
-        public void CqControllerBasedOnCqControllerBase()
+        public static void CqControllerBasedOnCqControllerBase()
         {
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()

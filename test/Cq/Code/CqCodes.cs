@@ -8,7 +8,7 @@ namespace Kaiheila.Cqhttp.Test.Cq.Code
     public class CqCodes
     {
         [Fact]
-        public void CqCodeTypesBasedOnCqCode()
+        public static void CqCodeTypesBasedOnCqCode()
         {
             foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                 x.GetTypes()
