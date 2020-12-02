@@ -19,7 +19,7 @@ namespace Kaiheila.Cqhttp.Cq.Events
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    sealed class CqEventAttribute : Attribute
+    public sealed class CqEventAttribute : Attribute
     {
         public CqEventAttribute(Type type) => Type = type;
 
