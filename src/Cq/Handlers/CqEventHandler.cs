@@ -22,14 +22,17 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// 初始化CQHTTP事件处理器。
         /// </summary>
         /// <param name="khHost">Kaiheila主机。</param>
+        /// <param name="cqContext">CQHTTP上下文。</param>
         /// <param name="logger">CQHTTP事件处理器日志记录器。</param>
         /// <param name="configHelper">提供访问应用配置能力的帮助类型。</param>
         public CqEventHandler(
             KhHost khHost,
+            CqContext cqContext,
             ILogger<CqActionHandler> logger,
             ConfigHelper configHelper)
         {
             _khHost = khHost;
+            _cqContext = cqContext;
             _logger = logger;
             _configHelper = configHelper;
 
@@ -57,7 +60,7 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
             if (!_eventTypes.TryGetValue(khEvent.GetType(), out Type eventType))
                 return null;
 
-            CqEventBase cqEvent = Activator.CreateInstance(eventType, khEvent) as CqEventBase;
+            CqEventBase cqEvent = Activator.CreateInstance(eventType, _cqContext, khEvent) as CqEventBase;
             return cqEvent;
         }
 
@@ -75,6 +78,11 @@ namespace Kaiheila.Cqhttp.Cq.Handlers
         /// Kaiheila主机。
         /// </summary>
         private readonly KhHost _khHost;
+
+        /// <summary>
+        /// CQHTTP上下文。
+        /// </summary>
+        private readonly CqContext _cqContext;
 
         /// <summary>
         /// CQHTTP事件处理器日志记录器。
