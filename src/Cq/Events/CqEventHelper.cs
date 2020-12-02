@@ -27,11 +27,11 @@ namespace Kaiheila.Cqhttp.Cq.Events
                 : ret) - InitialJavaScriptDateTicks) / 10000L;
         }
 
-        public static JObject CreateEventObject(CqEventPostType type) =>
+        public static JObject CreateEventObject(this CqContext context, CqEventPostType type) =>
             JObject.FromObject(new
             {
                 time = ConvertDateToJsTicks(DateTime.UtcNow),
-                self_id = 0,
+                self_id = context.KhHost.Bot.Self.Id,
                 post_type = GetPostTypeString(type)
             });
 

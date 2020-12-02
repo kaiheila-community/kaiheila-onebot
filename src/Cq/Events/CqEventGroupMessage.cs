@@ -6,11 +6,11 @@ namespace Kaiheila.Cqhttp.Cq.Events
     [CqEvent(typeof(KhEventMessage))]
     public class CqEventGroupMessage : CqEventBase
     {
-        public CqEventGroupMessage(KhEventBase eventBase)
+        public CqEventGroupMessage(CqContext context, KhEventBase eventBase) : base(context)
         {
             if (!(eventBase is KhEventMessage eventMessage)) return;
 
-            Result = CqEventHelper.CreateEventObject(CqEventPostType.Message);
+            Result = _context.CreateEventObject(CqEventPostType.Message);
             Result["message_type"] = "group";
             Result["sub_type"] = "normal";
             Result["message_id"] = 0;
