@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
+using Kaiheila.Events;
+using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.Cqhttp.Cq.Controllers
 {
@@ -24,15 +26,12 @@ namespace Kaiheila.Cqhttp.Cq.Controllers
 
         public override JToken Process(JToken payload)
         {
-            //_context.KhHost.Bot.SendTextMessage(
-            //    long.Parse(payload["group_id"]?.ToObject<string>()!),
-            //    payload["auto_escape"].ToObject<bool>()
-            //        ? payload["message"]?.ToObject<string>()
-            //        : _context.CqMessageHost.Parse(payload["message"]?.ToObject<string>()).ToString());
-
-            Context.KhHost.Bot.SendTextMessage(
-                long.Parse(payload["group_id"]?.ToObject<string>()!),
-                payload["message"]?.ToObject<string>());
+            foreach (KhEventBase khEventBase in Context.CqMessageHost.Parse(payload["message"]).CodeList
+                .Select(x => x.ConvertToKhEvent()))
+            {
+                Context.KhHost.Bot.SendTextMessage(long.Parse(payload["group_id"]?.ToObject<string>()!),
+                    (khEventBase as KhEventMessage)?.Content);
+            }
 
             return JToken.FromObject(new
             {
