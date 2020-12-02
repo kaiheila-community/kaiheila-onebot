@@ -2,6 +2,9 @@
 using System.Composition;
 using System.Linq;
 using Kaiheila.Cqhttp.Cq;
+using Kaiheila.Cqhttp.Cq.Database;
+using Kaiheila.Cqhttp.Storage;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -40,10 +43,17 @@ namespace Kaiheila.Cqhttp
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
+                    // Register Services
                     foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
                         x.GetTypes()
                             .Where(type => Attribute.GetCustomAttribute(type, typeof(ExportAttribute)) is not null)))
                         services.AddSingleton(type);
+
+                    // Register Database Service
+                    services.AddDbContextPool<CqDatabaseContext>(CreateCqDatabaseContextPool, 64);
                 });
+
+        private static void CreateCqDatabaseContextPool(DbContextOptionsBuilder options) =>
+            options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
     }
 }
