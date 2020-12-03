@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Kaiheila.Cqhttp.Storage
+namespace Kaiheila.OneBot.Storage
 {
     /// <summary>
     /// 提供访问应用存储能力的帮助类型。

@@ -1,9 +1,9 @@
 ﻿using System.Composition;
-using Kaiheila.Cqhttp.Cq.Message;
-using Kaiheila.Cqhttp.Kh;
-using Kaiheila.Cqhttp.Storage;
+using Kaiheila.OneBot.Cq.Message;
+using Kaiheila.OneBot.Kh;
+using Kaiheila.OneBot.Storage;
 
-namespace Kaiheila.Cqhttp.Cq
+namespace Kaiheila.OneBot.Cq
 {
     /// <summary>
     /// CQHTTP上下文。

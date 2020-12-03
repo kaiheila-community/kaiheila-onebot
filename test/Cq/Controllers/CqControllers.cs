@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Kaiheila.Cqhttp.Cq.Controllers;
+using Kaiheila.OneBot.Cq.Controllers;
 using Xunit;
 
-namespace Kaiheila.Cqhttp.Test.Cq.Controllers
+namespace Kaiheila.OneBot.Test.Cq.Controllers
 {
     public class CqControllers
     {

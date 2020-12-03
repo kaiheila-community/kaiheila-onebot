@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Kaiheila.Cqhttp.Cq.Database
+namespace Kaiheila.OneBot.Cq.Database
 {
     public sealed class CqDatabaseContext : DbContext
     {

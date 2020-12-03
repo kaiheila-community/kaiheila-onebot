@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Controllers
+namespace Kaiheila.OneBot.Cq.Controllers
 {
     [CqController("send_private_msg")]
     public class CqControllerSendPrivateMessage : CqControllerBase

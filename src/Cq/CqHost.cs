@@ -1,8 +1,8 @@
 ﻿using System.Composition;
-using Kaiheila.Cqhttp.Cq.Communication;
-using Kaiheila.Cqhttp.Storage;
+using Kaiheila.OneBot.Cq.Communication;
+using Kaiheila.OneBot.Storage;
 
-namespace Kaiheila.Cqhttp.Cq
+namespace Kaiheila.OneBot.Cq
 {
     /// <summary>
     /// CQHTTP主机，负责OneBot协议的接口监听和事件处理。

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Controllers
+namespace Kaiheila.OneBot.Cq.Controllers
 {
     [CqController("can_send_image")]
     public class CqControllerCanSendImage : CqControllerBase

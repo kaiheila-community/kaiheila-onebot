@@ -1,10 +1,10 @@
-﻿using Kaiheila.Cqhttp.Cq.Codes;
-using Kaiheila.Cqhttp.Cq.Message;
+﻿using Kaiheila.OneBot.Cq.Codes;
+using Kaiheila.OneBot.Cq.Message;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
-namespace Kaiheila.Cqhttp.Test.Cq.Message
+namespace Kaiheila.OneBot.Test.Cq.Message
 {
     public class CqMessages
     {

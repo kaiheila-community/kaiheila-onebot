@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Kaiheila.Cqhttp.Storage
+namespace Kaiheila.OneBot.Storage
 {
     /// <summary>
     /// 应用配置。

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Composition;
 using System.Linq;
-using Kaiheila.Cqhttp.Cq;
-using Kaiheila.Cqhttp.Cq.Database;
-using Kaiheila.Cqhttp.Storage;
+using Kaiheila.OneBot.Cq;
+using Kaiheila.OneBot.Cq.Database;
+using Kaiheila.OneBot.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Kaiheila.Cqhttp
+namespace Kaiheila.OneBot
 {
     /// <summary>
     /// 应用程序的入口点。

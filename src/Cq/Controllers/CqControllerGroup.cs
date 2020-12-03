@@ -2,7 +2,7 @@
 using Kaiheila.Data;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Controllers
+namespace Kaiheila.OneBot.Cq.Controllers
 {
     [CqController("get_stranger_info")]
     public class CqControllerGetStrangerInfo : CqControllerBase

@@ -4,13 +4,13 @@ using System.Composition;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using Kaiheila.Cqhttp.Cq.Events;
-using Kaiheila.Cqhttp.Kh;
-using Kaiheila.Cqhttp.Storage;
 using Kaiheila.Events;
+using Kaiheila.OneBot.Cq.Events;
+using Kaiheila.OneBot.Kh;
+using Kaiheila.OneBot.Storage;
 using Microsoft.Extensions.Logging;
 
-namespace Kaiheila.Cqhttp.Cq.Handlers
+namespace Kaiheila.OneBot.Cq.Handlers
 {
     /// <summary>
     /// CQHTTP事件处理器。

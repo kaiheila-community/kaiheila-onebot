@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Kaiheila.Cqhttp.Cq.Codes;
+using Kaiheila.OneBot.Cq.Codes;
 
-namespace Kaiheila.Cqhttp.Cq.Message
+namespace Kaiheila.OneBot.Cq.Message
 {
     public class CqMessage
     {

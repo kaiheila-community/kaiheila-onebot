@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Events
+namespace Kaiheila.OneBot.Cq.Events
 {
     public static class CqEventHelper
     {

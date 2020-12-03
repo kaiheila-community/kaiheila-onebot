@@ -1,7 +1,7 @@
 ﻿using Kaiheila.Events;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Events
+namespace Kaiheila.OneBot.Cq.Events
 {
     [CqEvent(typeof(KhEventTextMessage))]
     public class CqEventGroupMessage : CqEventBase

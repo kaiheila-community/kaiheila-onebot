@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Net;
-using Kaiheila.Cqhttp.Storage;
-using Kaiheila.Cqhttp.Utils;
+using Kaiheila.OneBot.Storage;
+using Kaiheila.OneBot.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Primitives;
 
-namespace Kaiheila.Cqhttp.Cq
+namespace Kaiheila.OneBot.Cq
 {
     public static class AuthorizationHelper
     {

@@ -5,7 +5,7 @@ using System.Reflection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-namespace Kaiheila.Cqhttp.Storage
+namespace Kaiheila.OneBot.Storage
 {
     /// <summary>
     /// 提供访问应用配置能力的帮助类型。

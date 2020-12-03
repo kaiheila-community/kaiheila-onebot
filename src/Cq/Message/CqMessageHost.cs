@@ -1,10 +1,10 @@
 ﻿using System.Composition;
 using System.Text.RegularExpressions;
-using Kaiheila.Cqhttp.Cq.Codes;
+using Kaiheila.OneBot.Cq.Codes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Message
+namespace Kaiheila.OneBot.Cq.Message
 {
     /// <summary>
     /// CQ消息主机。

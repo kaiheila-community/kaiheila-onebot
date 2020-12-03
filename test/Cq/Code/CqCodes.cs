@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Kaiheila.Cqhttp.Cq.Codes;
+using Kaiheila.OneBot.Cq.Codes;
 using Xunit;
 
-namespace Kaiheila.Cqhttp.Test.Cq.Code
+namespace Kaiheila.OneBot.Test.Cq.Code
 {
     public class CqCodes
     {

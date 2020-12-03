@@ -2,10 +2,10 @@
 using System.Composition;
 using Kaiheila.Client;
 using Kaiheila.Client.V2;
-using Kaiheila.Cqhttp.Storage;
+using Kaiheila.OneBot.Storage;
 using Microsoft.Extensions.Logging;
 
-namespace Kaiheila.Cqhttp.Kh
+namespace Kaiheila.OneBot.Kh
 {
     /// <summary>
     /// Kaiheila主机。

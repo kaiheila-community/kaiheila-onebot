@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace Kaiheila.Cqhttp.Utils
+namespace Kaiheila.OneBot.Utils
 {
     public static class CommunicationHelper
     {

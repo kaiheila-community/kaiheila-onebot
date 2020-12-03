@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Kaiheila.Cqhttp.Cq.Events;
+using Kaiheila.OneBot.Cq.Events;
 using Xunit;
 
-namespace Kaiheila.Cqhttp.Test.Cq.Events
+namespace Kaiheila.OneBot.Test.Cq.Events
 {
     public static class CqEvents
     {

@@ -6,15 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Kaiheila.Cqhttp.Cq.Controllers;
-using Kaiheila.Cqhttp.Kh;
-using Kaiheila.Cqhttp.Storage;
-using Kaiheila.Cqhttp.Utils;
+using Kaiheila.OneBot.Cq.Controllers;
+using Kaiheila.OneBot.Kh;
+using Kaiheila.OneBot.Storage;
+using Kaiheila.OneBot.Utils;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Handlers
+namespace Kaiheila.OneBot.Cq.Handlers
 {
     /// <summary>
     /// CQHTTP任务处理器。

@@ -1,4 +1,4 @@
-﻿namespace Kaiheila.Cqhttp.Cq.Codes
+﻿namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("image")]
     public class CqCodeImage : CqCodeBase

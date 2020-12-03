@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Composition;
 using System.Threading.Tasks;
 using Fleck;
-using Kaiheila.Cqhttp.Cq.Events;
-using Kaiheila.Cqhttp.Cq.Handlers;
-using Kaiheila.Cqhttp.Storage;
+using Kaiheila.OneBot.Cq.Events;
+using Kaiheila.OneBot.Cq.Handlers;
+using Kaiheila.OneBot.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Communication
+namespace Kaiheila.OneBot.Cq.Communication
 {
     /// <summary>
     /// CQHTTP WS主机，负责OneBot协议中WS接口的监听和事件处理。

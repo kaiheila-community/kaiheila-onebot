@@ -2,7 +2,7 @@
 using System.Reflection;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Controllers
+namespace Kaiheila.OneBot.Cq.Controllers
 {
     [CqController("get_status")]
     public class CqControllerGetStatus : CqControllerBase

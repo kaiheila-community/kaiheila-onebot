@@ -1,8 +1,7 @@
 ﻿using System;
-using Kaiheila.Cqhttp.Storage;
 using Newtonsoft.Json.Linq;
 
-namespace Kaiheila.Cqhttp.Cq.Controllers
+namespace Kaiheila.OneBot.Cq.Controllers
 {
     /// <summary>
     /// CQHTTP任务控制器。
