@@ -1,25 +1,25 @@
 /*!
- * kaiheila-cqhttp 配置文件
+ * kaiheila-onebot 配置文件
  * 版本 1
- * 随附于 kaiheila-cqhttp >= v0.1.0
+ * 随附于 kaiheila-onebot >= v0.1.0
  *
  * 可在
- * https://github.com/kaiheila-community/kaiheila-cqhttp
+ * https://github.com/kaiheila-community/kaiheila-onebot
  * 找到文档的帮助。
  *
  * 配置文件内允许使用注释，总是在对象成员后跟随逗号以及不带双引号的键名。
  *
- * 注意：不推荐移除任何配置项，因为在版本升级时kaiheila-cqhttp的默认行为总是有可能发生改变。
+ * 注意：不推荐移除任何配置项，因为在版本升级时kaiheila-onebot的默认行为总是有可能发生改变。
  */
 {
   /*
    * 指定兼容性模式。
    *
-   * 启用严格模式将会导致任何kaiheila-cqhttp不支持的内容均抛出异常，
+   * 启用严格模式将会导致任何kaiheila-onebot不支持的内容均抛出异常，
    * 这些内容可以是不支持的CqCode或HTTP API路由。
    *
    * 如果你使用的是面向OneBot开发的Bot框架，则你可能需要关闭严格模式以保证应用正常运行，
-   * 但如果你面向kaiheila-cqhttp进行开发，我们建议你启用严格模式。
+   * 但如果你面向kaiheila-onebot进行开发，我们建议你启用严格模式。
    */
   "compatibility_mode": 0,
 
@@ -37,14 +37,14 @@
   },
   
   /*
-   * CQHTTP配置。
+   * OneBot配置。
    *
-   * 使用此节点配置kaiheila-cqhttp与你的Bot服务进行连接的相关配置。
+   * 使用此节点配置kaiheila-onebot与你的Bot服务进行连接的相关配置。
    *
    * 我们最为推荐的通信方式是ws（WebSocket），但是你可以根据自己的实际情况
    * 选择最为适合的通信方式。
    */
-  "cqhttp": {
+  "onebot": {
     "http": {
       /*
        * 是否启用HTTP。
@@ -65,7 +65,7 @@
     },
 
     /*
-     * CQHTTP HTTP POST配置。
+     * OneBot HTTP POST配置。
      */
     "http_post": {
       /*
@@ -86,7 +86,7 @@
     },
 
     /*
-     * CQHTTP WS配置。
+     * OneBot WS配置。
      *
      * 这是我们推荐的通信方式。
      */
@@ -107,7 +107,7 @@
     },
 
     /*
-     * CQHTTP WS Reverse配置。
+     * OneBot WS Reverse配置。
      */
     "ws_reverse": {
       /*
@@ -117,11 +117,11 @@
     },
 
     /*
-     * CQHTTP 鉴权配置。
+     * OneBot 鉴权配置。
      */
     "auth": {
       /*
-       * CQHTTP 鉴权Access Token。
+       * OneBot 鉴权Access Token。
        */
       "access_token": "",
     },

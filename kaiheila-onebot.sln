@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-cqhttp", "src\kaiheila-cqhttp.csproj", "{8D14A36F-4568-4353-8D84-B10B42980B69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-onebot", "src\kaiheila-onebot.csproj", "{8D14A36F-4568-4353-8D84-B10B42980B69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-cqhttp-test", "test\kaiheila-cqhttp-test.csproj", "{F638334B-56AF-4543-9853-CB67777418CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kaiheila-onebot-test", "test\kaiheila-onebot-test.csproj", "{F638334B-56AF-4543-9853-CB67777418CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sdk", "sdk", "{6489D2FB-597F-4C6D-974A-C0F80A3A5C22}"
 EndProject

@@ -22,9 +22,9 @@ namespace Kaiheila.Cqhttp.Storage
         public KhConfig KhConfig { get; set; } = new KhConfig();
 
         /// <summary>
-        /// CQHTTP配置。
+        /// OneBot配置。
         /// </summary>
-        [JsonProperty("cqhttp")]
+        [JsonProperty("onebot")]
         public CqConfig CqConfig { get; set; } = new CqConfig();
     }
 
@@ -106,44 +106,44 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP配置。
+    /// OneBot配置。
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class CqConfig
     {
         /// <summary>
-        /// CQHTTP HTTP主机配置。
+        /// OneBot HTTP主机配置。
         /// </summary>
         [JsonProperty("http")]
         public CqHttpHostConfig CqHttpHostConfig { get; set; } = new CqHttpHostConfig();
 
         /// <summary>
-        /// CQHTTP HTTP POST主机配置。
+        /// OneBot HTTP POST主机配置。
         /// </summary>
         [JsonProperty("http_post")]
         public CqHttpPostHostConfig CqHttpPostHostConfig { get; set; } = new CqHttpPostHostConfig();
 
         /// <summary>
-        /// CQHTTP WS主机配置。
+        /// OneBot WS主机配置。
         /// </summary>
         [JsonProperty("ws")]
         public CqWsHostConfig CqWsHostConfig { get; set; } = new CqWsHostConfig();
 
         /// <summary>
-        /// CQHTTP WS Reverse主机配置。
+        /// OneBot WS Reverse主机配置。
         /// </summary>
         [JsonProperty("ws_reverse")]
         public CqWsReverseHostConfig CqWsReverseHostConfig { get; set; } = new CqWsReverseHostConfig();
 
         /// <summary>
-        /// CQHTTP 鉴权配置。
+        /// OneBot 鉴权配置。
         /// </summary>
         [JsonProperty("auth")]
         public CqAuthConfig CqAuthConfig { get; set; } = new CqAuthConfig();
     }
 
     /// <summary>
-    /// CQHTTP HTTP主机配置。
+    /// OneBot HTTP主机配置。
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class CqHttpHostConfig
@@ -168,7 +168,7 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP HTTP POST主机配置。
+    /// OneBot HTTP POST主机配置。
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class CqHttpPostHostConfig
@@ -193,7 +193,7 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP WS主机配置。
+    /// OneBot WS主机配置。
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class CqWsHostConfig
@@ -218,7 +218,7 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP WS Reverse主机配置。
+    /// OneBot WS Reverse主机配置。
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class CqWsReverseHostConfig
@@ -231,12 +231,12 @@ namespace Kaiheila.Cqhttp.Storage
     }
 
     /// <summary>
-    /// CQHTTP鉴权配置。
+    /// OneBot鉴权配置。
     /// </summary>
     public class CqAuthConfig
     {
         /// <summary>
-        /// CQHTTP 鉴权Access Token。
+        /// OneBot 鉴权Access Token。
         /// </summary>
         [JsonProperty("access_token")]
         public string AccessToken { get; set; } = "";

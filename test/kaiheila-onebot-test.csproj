@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Kaiheila.Cqhttp.Test</RootNamespace>
+    <RootNamespace>Kaiheila.OneBot.Test</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\kaiheila-cqhttp.csproj" />
+    <ProjectReference Include="..\src\kaiheila-onebot.csproj" />
   </ItemGroup>
 
 </Project>
