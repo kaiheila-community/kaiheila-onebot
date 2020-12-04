@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Composition;
 using System.Linq;
-using Kaiheila.OneBot.Cq;
 using Kaiheila.OneBot.Cq.Database;
 using Kaiheila.OneBot.Storage;
+using Kaiheila.OneBot.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,16 +21,8 @@ namespace Kaiheila.OneBot
         /// <param name="args">应用程序初始化命令参数。</param>
         public static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += (sender, eventArgs) =>
-            {
-                Console.WriteLine("出现异常。这个异常是由kaiheila-cqhttp引起的。");
-                Console.WriteLine(eventArgs.ExceptionObject);
-            };
-
             IHost host = CreateHostBuilder(args).Build();
-
-            _ = host.Services.GetService<CqHost>();
-
+            _ = host.Services.GetService<LifecycleHost>();
             host.Run();
         }
 
