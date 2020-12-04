@@ -1,6 +1,7 @@
 ﻿using Kaiheila.OneBot.Cq.Codes;
 using Kaiheila.OneBot.Cq.Message;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Newtonsoft.Json.Linq;
 using Xunit;
 
@@ -46,7 +47,7 @@ namespace Kaiheila.OneBot.Test.Cq.Message
 
         private static void ParseMessage(JToken token)
         {
-            CqMessageHost cqMessageHost = new CqMessageHost(new CqCodeHost(new Logger<CqCodeHost>(new LoggerFactory())));
+            CqMessageHost cqMessageHost = new CqMessageHost(new CqCodeHost(new Logger<CqCodeHost>(new NullLoggerFactory())));
 
             CqMessage message = cqMessageHost.Parse(token);
 
