@@ -63,7 +63,7 @@ namespace Kaiheila.OneBot.Kh
         /// <summary>
         /// Kaiheila机器人。
         /// </summary>
-        public readonly IBot Bot;
+        public readonly BotBase Bot;
 
         #endregion
 
