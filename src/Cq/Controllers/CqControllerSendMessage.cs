@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Kaiheila.Events;
+using Kaiheila.OneBot.Storage;
 using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.OneBot.Cq.Controllers
@@ -25,9 +29,27 @@ namespace Kaiheila.OneBot.Cq.Controllers
 
         public override JToken Process(JToken payload)
         {
-            Context.KhHost.Bot.SendTextMessage(long.Parse(payload["group_id"]?.ToObject<string>()!),
-                Context.CqMessageHost.Parse(payload["message"]).CodeList
-                    .Aggregate("", (s, b) => s + b.ConvertToString()));
+            switch (Context.ConfigHelper.Config.KhConfig.KhSendingMode)
+            {
+                case KhSendingMode.Normal:
+                    Context.KhHost.Bot.SendEvents(
+                        new List<KhEventBase>(
+                            Context.CqMessageHost.Parse(payload["message"]).CodeList
+                                .Select(x => x.ConvertToKhEvent())),
+                        new KhEventBase
+                        {
+                            ChannelId = long.Parse(payload["group_id"]?.ToObject<string>()!)
+                        },
+                        Context.KhEventCombinerHost).Wait();
+                    break;
+                case KhSendingMode.Plain:
+                    Context.KhHost.Bot.SendTextMessage(long.Parse(payload["group_id"]?.ToObject<string>()!),
+                        Context.CqMessageHost.Parse(payload["message"]).CodeList
+                            .Aggregate("", (s, b) => s + b.ConvertToString()));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return JToken.FromObject(new
             {
