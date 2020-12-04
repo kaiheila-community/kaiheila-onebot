@@ -1,6 +1,6 @@
 /*!
  * kaiheila-onebot 配置文件
- * 版本 1
+ * 版本 1.0
  * 随附于 kaiheila-onebot >= v0.1.0
  *
  * 可在
@@ -10,28 +10,127 @@
  * 配置文件内允许使用注释，总是在对象成员后跟随逗号以及不带双引号的键名。
  *
  * 注意：不推荐移除任何配置项，因为在版本升级时kaiheila-onebot的默认行为总是有可能发生改变。
+ *
+ * 注意：随着kaiheila-onebot的版本迭代，此配置文件中可能会有更多的配置项加入进来。
+ * 你随时可以在
+ * https://github.com/kaiheila-community/kaiheila-onebot/blob/master/src/Resources/config.json
+ * 处找到最新的默认配置文件。
+ *
+ * 注意：当默认配置文件版本号的MajorVersion发生改变时，即表明
+ * 此配置文件版本之前的所有配置文件都不能再与更新版本的kaiheila-onebot兼容。
+ * 你可能需要进行手动迁移。
  */
 {
   /*
    * 指定兼容性模式。
    *
+   * 兼容性模式等级说明：
+   *
+   * 0 - Off
+   *
+   * 指定严格模式关闭会使kaiheila-onebot捕获并处理任何OneBot主机抛出的异常。
+   * 这种模式下，使用任何不正确的请求载荷都不会使kaiheila-onebot出现异常。
+   *
+   * 如果你在向kaiheila-onebot接入第三方的OneBot客户端框架，你可以使用这个模式。
+   *
+   * **********
+   *
+   * 20 - OneBot
+   *
+   * 指定OneBot兼容模式会使kaiheila-onebot尝试处理任何OneBot协议中指定的
+   * API和CQ码，即使他们不被Kaiheila主机所支持。
+   * 通常情况下，不被支持的操作将会尝试使用Plain模式发送
+   * （参见「消息发送模式」）。
+   *
+   * 如果你在向kaiheila-onebot接入严格支持OneBot协议的
+   * 第三方的OneBot客户端框架或自己编写的OneBot客户端程序，
+   * 我们推荐你使用这个模式。
+   *
+   * **********
+   *
+   * 30 - Strict
+   *
    * 启用严格模式将会导致任何kaiheila-onebot不支持的内容均抛出异常，
    * 这些内容可以是不支持的CqCode或HTTP API路由。
    *
-   * 如果你使用的是面向OneBot开发的Bot框架，则你可能需要关闭严格模式以保证应用正常运行，
-   * 但如果你面向kaiheila-onebot进行开发，我们建议你启用严格模式。
+   * 如果你面向kaiheila-onebot进行开发，我们建议你使用严格模式。
    */
   "compatibility_mode": 0,
 
   "kaiheila": {
+    /*
+     * 指定Kaiheila客户端模式。
+     *
+     * 客户端模式等级说明：
+     *
+     * 0 - WebHook
+     *
+     * 使用APIv3通过WebHook方式连接服务器。
+     *
+     * 这是Kaiheila官方推荐的连接模式。
+     *
+     * **********
+     *
+     * 1 - WebSocket
+     *
+     * 使用APIv3通过WebSocket方式连接服务器。
+     *
+     * 请注意，WebSocket模式下的并发性能可能不如WebHook。
+     *
+     * **********
+     *
+     * 10 - V2
+     *
+     * 使用V2Client连接服务器。
+     *
+     * 这种方法可以使机器人模拟用户登录。不推荐使用。
+     */
     "mode": 10,
 
+    /*
+     * 指定Kaiheila消息发送模式。
+     *
+     * 消息发送模式等级说明：
+     *
+     * 0 - Normal
+     *
+     * 消息通过调用对应的API进行发送。
+     *
+     * 这是推荐的消息发送模式。
+     *
+     * **********
+     *
+     * 10 - Plain
+     *
+     * 所有消息都在转换为纯文本之后发送。
+     *
+     * 某些特殊情况下，你可以选择启用这个模式。
+     * Kaiheila客户端仍然可以解析部分图片链接。
+     */
+    "sending_mode": 0,
+
+    /*
+     * Kaiheila V2客户端配置。
+     */
     "v2": {
+      /*
+       * WS客户端连接的IP。
+       */
       "host": "127.0.0.1",
+
+      /*
+       * WS客户端连接的端口。
+       */
       "port": "7700",
     },
 
+    /*
+     * Kaiheila鉴权配置。
+     */
     "auth": {
+      /*
+       * Kaiheila鉴权使用的Cookie中的auth字段。
+       */
       "cookie_auth": "",
     },
   },
@@ -56,6 +155,7 @@
 
       /*
        * HTTP服务器监听的IP。
+       *
        * 使用"0.0.0.0"监听任何IP，
        * 使用"127.0.0.1"监听本机环回。
        */
@@ -98,6 +198,7 @@
 
       /*
        * WS服务器监听的IP。
+       *
        * 使用"0.0.0.0"监听任何IP，
        * 使用"127.0.0.1"监听本机环回。
        */

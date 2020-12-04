@@ -51,6 +51,12 @@ namespace Kaiheila.OneBot.Storage
         public KhClientMode KhClientMode { get; set; } = KhClientMode.WebHook;
 
         /// <summary>
+        /// 指定Kaiheila消息发送模式。
+        /// </summary>
+        [JsonProperty("sending_mode")]
+        public KhSendingMode KhSendingMode { get; set; } = KhSendingMode.Normal;
+
+        /// <summary>
         /// Kaiheila V2客户端配置。
         /// </summary>
         [JsonProperty("v2")]
@@ -71,6 +77,15 @@ namespace Kaiheila.OneBot.Storage
         WebHook = 0,
         WebSocket = 1,
         V2 = 10
+    }
+
+    /// <summary>
+    /// Kaiheila消息发送模式。
+    /// </summary>
+    public enum KhSendingMode
+    {
+        Normal = 0,
+        Plain = 10
     }
 
     /// <summary>
