@@ -54,7 +54,12 @@ namespace Kaiheila.OneBot.Cq.Controllers
                 case KhSendingMode.Plain:
                     Context.KhHost.Bot.SendTextMessage(long.Parse(payload["group_id"]?.ToObject<string>()!),
                         Context.CqMessageHost.Parse(payload["message"]).CodeList
-                            .Aggregate("", (s, b) => s + b.ConvertToString()));
+                            .Aggregate("", (s, b) =>
+                            {
+                                Task<string> taskString = b.ConvertToString();
+                                taskString.Wait();
+                                return s + taskString.Result;
+                            })).Wait();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
