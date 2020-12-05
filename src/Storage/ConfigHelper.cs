@@ -31,19 +31,36 @@ namespace Kaiheila.OneBot.Storage
         public void ReloadConfig()
         {
             ConfigFilePath = StorageHelper.GetRootFilePath("config.json");
+            var databaseFilePath = StorageHelper.GetRootFilePath("database.db");
 
             if (!File.Exists(ConfigFilePath))
             {
                 _logger.LogCritical("无法找到配置文件。");
 
-                var configFileStream = File.OpenWrite(ConfigFilePath);
-                var configResourceStream = Assembly.GetExecutingAssembly()
+                Stream configFileStream = File.OpenWrite(ConfigFilePath);
+                Stream configResourceStream = Assembly.GetExecutingAssembly()
                     .GetManifestResourceStream("Kaiheila.Cqhttp.Resources.config.json");
 
                 if (configResourceStream is null)
                     throw new ArgumentNullException(nameof(configResourceStream));
 
                 configResourceStream.CopyTo(configFileStream);
+
+                if (!File.Exists(databaseFilePath))
+                {
+                    Stream databaseFileStream = File.OpenWrite(databaseFilePath);
+                    Stream databaseResourceStream = Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("Kaiheila.Cqhttp.Resources.database.db");
+
+                    if (databaseResourceStream is null)
+                        throw new ArgumentNullException(nameof(databaseResourceStream));
+
+                    databaseResourceStream.CopyTo(databaseFileStream);
+
+                    databaseFileStream.Close();
+                    databaseResourceStream.Close();
+                }
+
                 configFileStream.Close();
                 configResourceStream.Close();
 
