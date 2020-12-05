@@ -33,18 +33,21 @@ namespace Kaiheila.OneBot.Cq.Controllers
             switch (Context.ConfigHelper.Config.KhConfig.KhSendingMode)
             {
                 case KhSendingMode.Normal:
+                    long channel = long.Parse(payload["group_id"]?.ToObject<string>()!);
                     Context.KhHost.Bot.SendEvents(
                         new List<KhEventBase>(
                             Context.CqMessageHost.Parse(payload["message"]).CodeList
                                 .Select(x =>
                                 {
-                                    Task<KhEventBase> convertTask = x.ConvertToKhEvent(Context);
+                                    Task<KhEventBase> convertTask = x.ConvertToKhEvent(
+                                        Context,
+                                        channel);
                                     convertTask.Wait();
                                     return convertTask.Result;
                                 })),
                         new KhEventBase
                         {
-                            ChannelId = long.Parse(payload["group_id"]?.ToObject<string>()!)
+                            ChannelId = channel
                         },
                         Context.KhEventCombinerHost).Wait();
                     break;

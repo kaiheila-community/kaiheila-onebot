@@ -9,7 +9,9 @@ namespace Kaiheila.OneBot.Cq.Codes
     {
         public Dictionary<string, string> Params = new Dictionary<string, string>();
 
-        public virtual async Task<KhEventBase> ConvertToKhEvent(CqContext context) =>
+        public virtual async Task<KhEventBase> ConvertToKhEvent(
+            CqContext context,
+            long channel) =>
             new KhEventTextMessage
             {
                 Content = await ConvertToString()
