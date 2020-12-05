@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Kaiheila.Events;
 using Kaiheila.OneBot.Storage;
 using Newtonsoft.Json.Linq;
@@ -35,7 +36,12 @@ namespace Kaiheila.OneBot.Cq.Controllers
                     Context.KhHost.Bot.SendEvents(
                         new List<KhEventBase>(
                             Context.CqMessageHost.Parse(payload["message"]).CodeList
-                                .Select(x => x.ConvertToKhEvent(Context))),
+                                .Select(x =>
+                                {
+                                    Task<KhEventBase> convertTask = x.ConvertToKhEvent(Context);
+                                    convertTask.Wait();
+                                    return convertTask.Result;
+                                })),
                         new KhEventBase
                         {
                             ChannelId = long.Parse(payload["group_id"]?.ToObject<string>()!)
