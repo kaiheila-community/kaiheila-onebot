@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Composition;
 using System.Linq;
+using System.Reflection;
 using Kaiheila.OneBot.Cq.Database;
 using Kaiheila.OneBot.Storage;
 using Kaiheila.OneBot.Utils;
@@ -36,9 +37,13 @@ namespace Kaiheila.OneBot
                 .ConfigureServices((context, services) =>
                 {
                     // Register Services
-                    foreach (Type type in AppDomain.CurrentDomain.GetAssemblies().SelectMany(x =>
-                        x.GetTypes()
-                            .Where(type => Attribute.GetCustomAttribute(type, typeof(ExportAttribute)) is not null)))
+                    foreach (Type type in AppDomain.CurrentDomain.GetAssemblies()
+                        .Concat(Assembly.GetExecutingAssembly().GetReferencedAssemblies()
+                            .Select(Assembly.Load))
+                        .SelectMany(x =>
+                            x.GetTypes()
+                                .Where(type =>
+                                    Attribute.GetCustomAttribute(type, typeof(ExportAttribute)) is not null)))
                         services.AddSingleton(type);
 
                     // Register Database Service
