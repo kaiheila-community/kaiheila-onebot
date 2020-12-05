@@ -8,7 +8,7 @@ namespace Kaiheila.OneBot.Cq.Codes
     {
         public Dictionary<string, string> Params = new Dictionary<string, string>();
 
-        public virtual KhEventBase ConvertToKhEvent() =>
+        public virtual KhEventBase ConvertToKhEvent(CqContext context) =>
             new KhEventTextMessage
             {
                 Content = ConvertToString()

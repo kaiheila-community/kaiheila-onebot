@@ -35,7 +35,7 @@ namespace Kaiheila.OneBot.Cq.Controllers
                     Context.KhHost.Bot.SendEvents(
                         new List<KhEventBase>(
                             Context.CqMessageHost.Parse(payload["message"]).CodeList
-                                .Select(x => x.ConvertToKhEvent())),
+                                .Select(x => x.ConvertToKhEvent(Context))),
                         new KhEventBase
                         {
                             ChannelId = long.Parse(payload["group_id"]?.ToObject<string>()!)
