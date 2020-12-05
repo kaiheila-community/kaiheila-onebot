@@ -8,6 +8,8 @@ using Kaiheila.OneBot.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Kaiheila.OneBot
 {
@@ -48,7 +50,16 @@ namespace Kaiheila.OneBot
 
                     // Register Database Service
                     //services.AddDbContextPool<CqDatabaseContext>(CreateCqDatabaseContextPool, 64);
-                });
+                })
+                .ConfigureLogging(builder => builder
+                    .AddDebug()
+                    .AddSimpleConsole(options =>
+                    {
+                        options.ColorBehavior = LoggerColorBehavior.Enabled;
+                        options.SingleLine = true;
+                        options.IncludeScopes = true;
+                    })
+                    .AddSystemdConsole());
 
         //private static void CreateCqDatabaseContextPool(DbContextOptionsBuilder options) =>
         //    options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
