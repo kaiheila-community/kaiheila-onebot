@@ -42,10 +42,10 @@ namespace Kaiheila.OneBot
                         services.AddSingleton(type);
 
                     // Register Database Service
-                    services.AddDbContextPool<CqDatabaseContext>(CreateCqDatabaseContextPool, 64);
+                    //services.AddDbContextPool<CqDatabaseContext>(CreateCqDatabaseContextPool, 64);
                 });
 
-        private static void CreateCqDatabaseContextPool(DbContextOptionsBuilder options) =>
-            options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
+        //private static void CreateCqDatabaseContextPool(DbContextOptionsBuilder options) =>
+        //    options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
     }
 }
