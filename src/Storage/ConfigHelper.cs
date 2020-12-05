@@ -39,7 +39,7 @@ namespace Kaiheila.OneBot.Storage
 
                 Stream configFileStream = File.OpenWrite(ConfigFilePath);
                 Stream configResourceStream = Assembly.GetExecutingAssembly()
-                    .GetManifestResourceStream("Kaiheila.Cqhttp.Resources.config.json");
+                    .GetManifestResourceStream("Kaiheila.OneBot.Resources.config.json");
 
                 if (configResourceStream is null)
                     throw new ArgumentNullException(nameof(configResourceStream));
@@ -50,7 +50,7 @@ namespace Kaiheila.OneBot.Storage
                 {
                     Stream databaseFileStream = File.OpenWrite(databaseFilePath);
                     Stream databaseResourceStream = Assembly.GetExecutingAssembly()
-                        .GetManifestResourceStream("Kaiheila.Cqhttp.Resources.database.db");
+                        .GetManifestResourceStream("Kaiheila.OneBot.Resources.database.db");
 
                     if (databaseResourceStream is null)
                         throw new ArgumentNullException(nameof(databaseResourceStream));
