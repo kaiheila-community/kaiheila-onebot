@@ -1,4 +1,6 @@
-﻿namespace Kaiheila.OneBot.Cq.Codes
+﻿using System.Threading.Tasks;
+
+namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("dice")]
     public class CqCodeDice : CqCodeBase
@@ -8,6 +10,6 @@
             Params = cqCode.Params;
         }
 
-        public override string ConvertToString() => "（掷骰子）";
+        public override async Task<string> ConvertToString() => "（掷骰子）";
     }
 }

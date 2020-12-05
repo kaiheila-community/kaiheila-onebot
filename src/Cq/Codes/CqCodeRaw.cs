@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Kaiheila.OneBot.Cq.Codes
 {
@@ -15,6 +16,6 @@ namespace Kaiheila.OneBot.Cq.Codes
             Params = @params;
         }
 
-        public override string ConvertToString() => "（不支持的消息）";
+        public override async Task<string> ConvertToString() => "（不支持的消息）";
     }
 }

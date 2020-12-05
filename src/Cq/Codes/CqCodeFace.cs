@@ -1,4 +1,6 @@
-﻿namespace Kaiheila.OneBot.Cq.Codes
+﻿using System.Threading.Tasks;
+
+namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("face")]
     public class CqCodeFace : CqCodeBase
@@ -16,6 +18,6 @@
 
         public readonly ushort Id;
 
-        public override string ConvertToString() => $"（表情：{Id} ）";
+        public override async Task<string> ConvertToString() => $"（表情：{Id} ）";
     }
 }

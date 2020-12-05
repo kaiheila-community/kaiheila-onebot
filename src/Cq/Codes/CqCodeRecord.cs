@@ -1,4 +1,6 @@
-﻿namespace Kaiheila.OneBot.Cq.Codes
+﻿using System.Threading.Tasks;
+
+namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("record")]
     public class CqCodeRecord : CqCodeBase
@@ -20,6 +22,6 @@
 
         public readonly string Url;
 
-        public override string ConvertToString() => $"（语音：{Url} ）";
+        public override async Task<string> ConvertToString() => $"（语音：{Url} ）";
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Kaiheila.OneBot.Cq.Codes
+﻿using System.Threading.Tasks;
+
+namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("at")]
     public class CqCodeAt : CqCodeBase
@@ -16,6 +18,6 @@
 
         public readonly string Target;
 
-        public override string ConvertToString() => $"（@：{Target} ）";
+        public override async Task<string> ConvertToString() => $"（@：{Target} ）";
     }
 }

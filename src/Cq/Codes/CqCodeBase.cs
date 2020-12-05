@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Kaiheila.Events;
 
 namespace Kaiheila.OneBot.Cq.Codes
@@ -8,13 +9,13 @@ namespace Kaiheila.OneBot.Cq.Codes
     {
         public Dictionary<string, string> Params = new Dictionary<string, string>();
 
-        public virtual KhEventBase ConvertToKhEvent(CqContext context) =>
+        public virtual async Task<KhEventBase> ConvertToKhEvent(CqContext context) =>
             new KhEventTextMessage
             {
-                Content = ConvertToString()
+                Content = await ConvertToString()
             };
 
-        public abstract string ConvertToString();
+        public abstract Task<string> ConvertToString();
     }
 
     [AttributeUsage(AttributeTargets.Class)]

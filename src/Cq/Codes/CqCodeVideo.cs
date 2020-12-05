@@ -1,4 +1,6 @@
-﻿namespace Kaiheila.OneBot.Cq.Codes
+﻿using System.Threading.Tasks;
+
+namespace Kaiheila.OneBot.Cq.Codes
 {
     [CqCode("video")]
     public class CqCodeVideo : CqCodeBase
@@ -20,6 +22,6 @@
 
         public readonly string Url;
 
-        public override string ConvertToString() => $"（视频：{Url} ）";
+        public override async Task<string> ConvertToString() => $"（视频：{Url} ）";
     }
 }
