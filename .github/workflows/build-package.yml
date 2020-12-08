@@ -26,7 +26,7 @@ jobs:
       run: |
         mkdir -p bin/Release/publish
         rm -rf bin/Release/net5.0
-        cp bin/Release/* bin/Release/publish
+        cp -r bin/Release/* bin/Release/publish
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
