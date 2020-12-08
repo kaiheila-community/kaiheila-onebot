@@ -4,11 +4,27 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Kaiheila.OneBot</RootNamespace>
+    <PackageId>Kaiheila.OneBot</PackageId>
+    <Authors>Il Harper</Authors>
+    <Product>Kaiheila.OneBot</Product>
+    <Description>OneBot（原CQHTTP）的开黑啦（kaiheila）平台实现。</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>2020 Il Harper</Copyright>
+    <PackageProjectUrl>https://github.com/kaiheila-community/kaiheila-onebot</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kaiheila-community/kaiheila-onebot</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>kaiheila,onebot,cqhttp</PackageTags>
+    <Version>0.1.0</Version>
+    <PackageIcon>kaiheila.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\config.json" />
     <None Remove="Resources\create_db.sql" />
+    <None Include="Assets\kaiheila.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
