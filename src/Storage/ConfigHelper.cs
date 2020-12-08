@@ -37,7 +37,9 @@ namespace Kaiheila.OneBot.Storage
 
             if (!File.Exists(ConfigFilePath))
             {
-                _logger.LogCritical("无法找到配置文件。");
+                Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Kaiheila.OneBot"));
+
+                _logger.LogInformation("没有找到配置文件。");
 
                 Stream configFileStream = File.OpenWrite(ConfigFilePath);
                 Stream configResourceStream = Assembly.GetExecutingAssembly()
