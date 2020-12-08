@@ -25,7 +25,8 @@ jobs:
     - name: Copy files
       run: |
         mkdir -p bin/Release/publish
-        cp bin/Release/* bin/Release/publish
+        shopt -s extglob
+        cp bin/Release/+(nupkg) bin/Release/publish
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
