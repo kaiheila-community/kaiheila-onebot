@@ -24,11 +24,11 @@ jobs:
       run: dotnet pack ./src/kaiheila-onebot.csproj --configuration Release --no-restore
     - name: Copy files
       run: |
-        mkdir -p bin/Release/publish
+        mkdir -p bin/publish
         rm -rf bin/Release/net5.0
-        cp -r bin/Release/* bin/Release/publish
+        cp -r bin/Release/* bin/publish
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
         name: kaiheila-onebot-nupkg-${{ github.sha }}
-        path: bin/Release/publish
+        path: bin/publish
