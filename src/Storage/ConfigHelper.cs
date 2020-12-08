@@ -2,6 +2,8 @@
 using System.Composition;
 using System.IO;
 using System.Reflection;
+using Kaiheila.OneBot.Cq.Database;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -48,17 +50,22 @@ namespace Kaiheila.OneBot.Storage
 
                 if (!File.Exists(databaseFilePath))
                 {
-                    Stream databaseFileStream = File.OpenWrite(databaseFilePath);
-                    Stream databaseResourceStream = Assembly.GetExecutingAssembly()
-                        .GetManifestResourceStream("Kaiheila.OneBot.Resources.database.db");
+                    using Stream databaseResourceStream = Assembly.GetExecutingAssembly()
+                        .GetManifestResourceStream("Kaiheila.OneBot.Resources.create_db.sql");
 
                     if (databaseResourceStream is null)
                         throw new ArgumentNullException(nameof(databaseResourceStream));
 
-                    databaseResourceStream.CopyTo(databaseFileStream);
+                    using StreamReader dbScriptReader = new StreamReader(databaseResourceStream);
+                    string createDatabaseScript = dbScriptReader.ReadToEnd();
 
-                    databaseFileStream.Close();
-                    databaseResourceStream.Close();
+                    using SqliteConnection connection = new SqliteConnection(CqDatabaseContext.ConnectionString);
+                    connection.Open();
+
+                    using var command = connection.CreateCommand();
+                    command.CommandText = createDatabaseScript;
+
+                    command.ExecuteNonQuery();
                 }
 
                 configFileStream.Close();

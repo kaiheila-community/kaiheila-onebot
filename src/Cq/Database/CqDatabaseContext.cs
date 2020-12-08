@@ -15,9 +15,11 @@ namespace Kaiheila.OneBot.Cq.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
+            options.UseSqlite(ConnectionString);
         }
 
         public DbSet<CqAsset> Assets { get; set; }
+
+        public static readonly string ConnectionString = @$"Data Source={StorageHelper.GetRootFilePath("database.db")}";
     }
 }

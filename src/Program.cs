@@ -2,10 +2,7 @@
 using System.Composition;
 using System.Linq;
 using System.Reflection;
-using Kaiheila.OneBot.Cq.Database;
-using Kaiheila.OneBot.Storage;
 using Kaiheila.OneBot.Utils;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -62,6 +59,6 @@ namespace Kaiheila.OneBot
                     .AddSystemdConsole());
 
         //private static void CreateCqDatabaseContextPool(DbContextOptionsBuilder options) =>
-        //    options.UseSqlite(@$"Data Source={StorageHelper.GetRootFilePath("database.db")}");
+        //    options.UseSqlite(CqDatabaseContext.ConnectionString);
     }
 }

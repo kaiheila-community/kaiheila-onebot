@@ -8,12 +8,12 @@
 
   <ItemGroup>
     <None Remove="Resources\config.json" />
-    <None Remove="Resources\database.db" />
+    <None Remove="Resources\create_db.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\config.json" />
-    <EmbeddedResource Include="Resources\database.db" />
+    <EmbeddedResource Include="Resources\create_db.sql" />
   </ItemGroup>
 
   <ItemGroup>
