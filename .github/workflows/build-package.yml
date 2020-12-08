@@ -25,9 +25,7 @@ jobs:
     - name: Copy files
       run: |
         mkdir -p bin/Release/publish
-        cd bin/Release
-        cp *.nupkg publish
-        cd ../..
+        cp bin/Release/* bin/Release/publish
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
