@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/kaiheila-community/kaiheila-onebot</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>kaiheila,onebot,cqhttp</PackageTags>
-    <Version>0.1.0</Version>
+    <Version>0.0.1</Version>
     <PackageIcon>kaiheila.png</PackageIcon>
   </PropertyGroup>
 
