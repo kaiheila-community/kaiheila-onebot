@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Build and Test
+    name: Build and Pack
     
     runs-on: ubuntu-latest
 
