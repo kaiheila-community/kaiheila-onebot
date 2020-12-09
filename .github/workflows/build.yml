@@ -1,4 +1,4 @@
-name: Build Binary
+name: Build
 
 on: [push, pull_request]
 
@@ -22,9 +22,59 @@ jobs:
       run: dotnet build ./src/kaiheila-onebot.csproj --configuration Release --no-restore
     - name: Test
       run: dotnet test ./test/kaiheila-onebot-test.csproj --no-restore --verbosity normal
+      
+  pack:
+    name: Build Package
+    
+    needs: [build]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build ./src/kaiheila-onebot.csproj --configuration Release --no-restore
+    - name: Pack
+      run: dotnet pack ./src/kaiheila-onebot.csproj -o src/bin/publish/ --configuration Release --no-restore
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: kaiheila-onebot-nupkg-${{ github.sha }}
+        path: src/bin/publish
+        
+  docker:
+    name: Build Image
+    
+    needs: [build]
+    
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - name: Docker Build
+      run: docker build -t kaiheila-onebot .
+    - name: Export Image
+      run: |
+        mkdir image
+        docker save kaiheila-onebot > ./image/kaiheila-onebot-docker.tar
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: kaiheila-onebot-docker-${{ github.sha }}
+        path: image
 
   publish:
-    name: Publish
+    name: Build Binary
     
     strategy:
       matrix:
