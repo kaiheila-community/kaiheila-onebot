@@ -193,6 +193,7 @@ namespace Kaiheila.OneBot.Cq.Handlers
             try
             {
                 JToken token = _options.Value.Process(context.Request.Path.Value.Trim('/'), payload);
+                context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(token.ToString());
             }
             catch (HttpRequestException e)
