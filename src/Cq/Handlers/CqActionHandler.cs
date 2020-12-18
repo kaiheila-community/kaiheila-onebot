@@ -5,13 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Kaiheila.OneBot.Cq.Controllers;
 using Kaiheila.OneBot.Kh;
 using Kaiheila.OneBot.Storage;
 using Kaiheila.OneBot.Utils;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
 namespace Kaiheila.OneBot.Cq.Handlers
@@ -146,50 +149,71 @@ namespace Kaiheila.OneBot.Cq.Handlers
         private readonly ConfigHelper _configHelper;
     }
 
-    public static class CqActionHandlerHelper
+    public class CqActionHandlerMiddleware
+    {
+        public CqActionHandlerMiddleware(
+            RequestDelegate next,
+            IOptions<CqActionHandler> options)
+        {
+            _next = next;
+            _options = options;
+        }
+
+        private RequestDelegate _next;
+        private readonly IOptions<CqActionHandler> _options;
+
+        public async Task InvokeAsync(HttpContext context)
+        {
+            JObject payload;
+
+            switch (context.Request.ContentType)
+            {
+                case "application/json":
+                    try
+                    {
+                        payload = JObject.Parse(await new StreamReader(context.Request.Body).ReadToEndAsync());
+                    }
+                    catch (Exception)
+                    {
+                        context.Response.SetStatusCode(HttpStatusCode.BadRequest);
+                        return;
+                    }
+                    break;
+                default:
+                    context.Response.SetStatusCode(HttpStatusCode.NotAcceptable);
+                    return;
+            }
+
+            if (string.IsNullOrEmpty(context.Request.Path.Value))
+            {
+                context.Response.SetStatusCode(HttpStatusCode.BadRequest);
+                return;
+            }
+
+            try
+            {
+                JToken token = _options.Value.Process(context.Request.Path.Value.Trim('/'), payload);
+                await context.Response.WriteAsync(token.ToString());
+            }
+            catch (HttpRequestException e)
+            {
+                if (e.StatusCode != null) context.Response.SetStatusCode((HttpStatusCode)e.StatusCode);
+            }
+            catch (Exception)
+            {
+                // Ignore
+            }
+        }
+    }
+
+    public static class CqActionHandlerExtensions
     {
         public static IApplicationBuilder UseCqActionHandler(
             this IApplicationBuilder builder,
             CqActionHandler cqActionHandler)
         {
-            builder.Use(
-                next => async context =>
-                {
-                    JObject payload;
-
-                    switch (context.Request.ContentType)
-                    {
-                        case "application/json":
-                            try
-                            {
-                                payload = JObject.Parse(await new StreamReader(context.Request.Body).ReadToEndAsync());
-                            }
-                            catch (Exception e)
-                            {
-                                context.Response.SetStatusCode(HttpStatusCode.BadRequest);
-                                return;
-                            }
-                            break;
-                        default:
-                            context.Response.SetStatusCode(HttpStatusCode.NotAcceptable);
-                            return;
-                    }
-
-                    try
-                    {
-                        cqActionHandler.Process(context.Request.Path.Value.Trim('/'), payload);
-                    }
-                    catch (HttpRequestException e)
-                    {
-                        if (e.StatusCode != null) context.Response.SetStatusCode((HttpStatusCode) e.StatusCode);
-                        return;
-                    }
-                    catch (Exception e)
-                    {
-                        return;
-                    }
-                });
-
+            builder.UseMiddleware<CqActionHandlerMiddleware>(
+                Options.Create(cqActionHandler));
             return builder;
         }
     }
