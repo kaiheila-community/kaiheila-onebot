@@ -33,11 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Figgle" Version="0.4.0" />
     <PackageReference Include="Fleck" Version="1.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Connections" Version="1.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
