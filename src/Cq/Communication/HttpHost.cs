@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Composition;
-using System.Net;
 using Kaiheila.OneBot.Cq.Handlers;
 using Kaiheila.OneBot.Storage;
 using Microsoft.AspNetCore.Hosting;
@@ -57,13 +56,9 @@ namespace Kaiheila.OneBot.Cq.Communication
         private IWebHost _webHost;
 
         private IWebHostBuilder CreateWebHostBuilder() =>
-            new WebHostBuilder().UseKestrel(options =>
-                {
-                    options.Listen(
-                        IPAddress.Parse(_configHelper.Config.CqConfig.CqHttpHostConfig.Host),
-                        _configHelper.Config.CqConfig.CqHttpHostConfig.Port
-                        );
-                })
+            new WebHostBuilder()
+                .UseKestrel()
+                .UseUrls($"http://{_configHelper.Config.CqConfig.CqHttpHostConfig.Host}:{_configHelper.Config.CqConfig.CqHttpHostConfig.Port}")
                 .Configure(builder =>
                 {
                     builder
