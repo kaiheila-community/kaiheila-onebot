@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Composition;
 using Kaiheila.Client;
-using Kaiheila.Client.V2;
 using Kaiheila.OneBot.Storage;
 using Microsoft.Extensions.Logging;
 
@@ -37,10 +36,7 @@ namespace Kaiheila.OneBot.Kh
                 case KhClientMode.WebSocket:
                     throw new NotImplementedException();
                 case KhClientMode.V2:
-                    Bot = new V2Client(
-                        _configHelper.Config.KhConfig.KhAuthConfig.CookieAuth,
-                        new Uri(
-                            $"ws://{_configHelper.Config.KhConfig.KhClientV2Config.Host}:{_configHelper.Config.KhConfig.KhClientV2Config.Port}"));
+                    Bot = new ZeroClient();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
