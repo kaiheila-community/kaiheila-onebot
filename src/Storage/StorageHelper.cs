@@ -22,7 +22,7 @@ namespace Kaiheila.OneBot.Storage
         /// <returns>文件夹的完整路径。</returns>
         public static string GetSectionFolderPath(string sectionName)
         {
-            string folderPath = Path.Combine(GetRootPath(), @$"{sectionName}\");
+            string folderPath = Path.Combine(GetRootPath(), $"{sectionName}/");
             Directory.CreateDirectory(folderPath);
             return folderPath;
         }
@@ -64,7 +64,7 @@ namespace Kaiheila.OneBot.Storage
         /// <returns>存储根目录的路径。</returns>
         private static string GetRootPath()
         {
-            string rootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"storage\");
+            string rootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "storage/");
             Directory.CreateDirectory(rootPath);
             return rootPath;
         }
